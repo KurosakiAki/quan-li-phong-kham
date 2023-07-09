@@ -1,0 +1,12 @@
+FROM node:12.13-slim
+
+WORKDIR /app/src
+
+COPY ./api/package*.json ./
+
+
+RUN npm install
+
+COPY ./api .
+
+ENV TZ="Asia/Ho_Chi_Minh"

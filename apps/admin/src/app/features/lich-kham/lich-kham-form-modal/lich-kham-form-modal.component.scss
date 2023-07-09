@@ -1,0 +1,8 @@
+.form-control:focus{
+    box-shadow: none !important;
+    border-color: #03ACF2;
+}
+
+:host ::ng-deep .time-error.ng-invalid.ng-touched .form-control{
+    border-color: #dc3545;
+}

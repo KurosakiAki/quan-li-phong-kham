@@ -1,0 +1,26 @@
+.header, .header-space,
+.footer, .footer-space { height: 100px; }
+.header { position: fixed; top: 0; }
+.footer { position: fixed; bottom: 0; }
+
+@media screen {
+  :host {
+    display: none;
+  }
+}
+
+@media print {
+  @page {
+      size: A3;
+  }
+}
+
+.container{
+  padding: 20px 0;
+  margin: 0 auto;
+}
+
+.sub-title{
+  font-weight: 480;
+  margin-bottom: 5px;
+}

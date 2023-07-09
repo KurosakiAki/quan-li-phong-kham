@@ -1,0 +1,67 @@
+<m-page-header>
+    <m-page-title>
+        <span translate>Đăng ký lịch khám</span>
+    </m-page-title> 
+</m-page-header>
+<m-page-container>
+    <p class="text-center"><strong>Lưu ý: </strong>Vui lòng nhập email chính xác của bạn, chúng tôi sẽ gửi mail dến email này khi lịch khám được xác nhận</p>
+    <form [formGroup]="lichKhamForm" novalidate #form="ngForm">
+        <div class="container-fluid">
+            <div class="row justify-content-lg-center flex-lg-row flex-column">
+                <div class="col col-lg-5 px-0">
+                    <ngb-datepicker class="pt-1 pb-3 border-0" #dp formControlName="ngayKham" [markDisabled]="isDisabled" (dateSelect)="onDateSelect($event)" [minDate]="minDate"></ngb-datepicker>
+                </div>
+                <div class="col col-lg-5">
+                    <div class="row">
+                        <div class="form-group col-md-6">
+                          <label class="required form-label">Ngày khám</label>
+                          <input type="date" class="form-control" name="ngayKham" formControlName="ngayKham" placeholder="{{'Ngày khám' | translate}}" readonly [value]="lichKhamForm.value.ngayKham | date:'yyyy-MM-dd'">
+                          <control-error-message [control]="lichKhamForm.controls['ngayKham']" *ngIf="lichKhamForm.controls['ngayKham'].touched"></control-error-message>
+                        </div>
+                        <div class="form-group col-md-6">
+                          <label class="required form-label">Giờ khám</label>
+                          <m-timepicker formControlName="gioKham" class="time-error" [gioKham]="gioKhamTrongNgay" [disabled]="!lichKhamForm.value.ngayKham"></m-timepicker>
+                          <control-error-message [control]="lichKhamForm.controls['gioKham']" *ngIf="lichKhamForm.controls['gioKham'].touched"></control-error-message>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-6">
+                          <label class="required form-label">Họ và tên</label>
+                          <input type="text" class="form-control" placeholder="{{'Họ và tên' | translate}}" name="tenBenhNhan" formControlName="tenBenhNhan">
+                          <control-error-message [control]="lichKhamForm.controls['tenBenhNhan']" *ngIf="lichKhamForm.controls['tenBenhNhan'].touched"></control-error-message>
+                        </div>
+                        <div class="form-group col-md-6">
+                          <label class="required form-label">Số điện thoại</label>
+                          <input class="form-control" autocomplete="off"
+                            oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');" type="text"
+                            name="soDienThoai" formControlName="soDienThoai" placeholder="{{'Số điện thoại' | translate}}">
+                          <div class="text-danger" *ngIf="lichKhamForm.valid && form.submitted && validatePhone()" translate>
+                            Không phải là số điện thoại Việt Nam
+                            </div>
+                            <control-error-message [control]="lichKhamForm.controls['soDienThoai']" *ngIf="lichKhamForm.controls['soDienThoai'].touched"></control-error-message>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-6">
+                            <label class="form-label">Địa chỉ</label>
+                            <input type="text" class="form-control" name="diaChi" formControlName="diaChi" placeholder="{{'Địa chỉ' | translate}}">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label class="form-label required">Email</label>
+                            <input type="text" class="form-control" name="email" formControlName="email" placeholder="{{'Email' | translate}}">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="required form-label">Lý do đến khám</label>
+                        <textarea class="form-control" name="lyDo" formControlName="lyDo" cols="30" rows="5" placeholder="{{'Lý do đến khám' | translate}}"></textarea>
+                        <control-error-message [control]="lichKhamForm.controls['lyDo']" *ngIf="lichKhamForm.controls['lyDo'].touched"></control-error-message>
+                    </div>
+                </div>
+            </div>
+            <div class="d-flex justify-content-center pt-3 pb-3">
+                <button type="submit" (click)="onSubmit()" class="btn btn-secondary btn-lg submit">Đăng ký</button>
+            </div>
+        </div>
+    </form>
+</m-page-container>
+

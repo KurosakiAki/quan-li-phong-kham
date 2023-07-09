@@ -1,0 +1,71 @@
+<div class="modal-header">
+    <div class="modal-title">
+        <h4 translate>Chi tiết</h4>
+    </div>
+</div>
+
+<div class="modal-body">
+    <h4 translate>Đơn thuốc</h4>
+    <div class="table-responsive-xl mt-3">
+        <table class="table table-hover table-fixed">
+            <thead>
+                <tr class="table-primary">
+                    <th scope="col">STT</th>
+                    <th scope="col">Tên thuốc</th>
+                    <th scope="col" style="width: 100px; min-width: 100px;">Đơn vị</th>
+                    <th scope="col" style="width: 120px; min-width: 85px;">Số lượng</th>
+                    <th scope="col" style="width: 120px; min-width: 150px;">Đơn giá</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let thuoc of chiTietDonThuocList; let i=index">
+                    <td style="width: 30px;" class="align-middle">{{i+1}}</td>
+                    <td class="align-middle">
+                        <h5 style="font-size: 16px;">{{thuoc.tenThuoc}}</h5>
+                        <p class="mb-0"><em>- {{thuoc.cachDung}}</em></p>
+                    </td>
+                    <td class="align-middle">
+                        <label class="form-label me-0 mb-0" translate>{{thuoc.donVi}}</label>
+                    </td>
+                    <td class="align-middle">
+                        <div class="">{{thuoc.soLuong}}</div>
+                    </td>
+                    <td class="align-middle">
+                        <div class="">{{thuoc.donGia | number:'1.0':'en-US'}}</div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <h4 translate>Dịch vụ</h4>
+    <div class="table-responsive-xl mt-3">
+        <table class="table table-hover table-fixed">
+            <thead>
+                <tr class="table-primary">
+                    <th scope="col">STT</th>
+                    <th scope="col">Tên dịch vụ</th>
+                    <th scope="col" style="width: 100px; min-width: 100px;">Đơn vị</th>
+                    <th scope="col" style="width: 120px; min-width: 85px;">Số lượng</th>
+                    <th scope="col" style="width: 120px; min-width: 150px;">Đơn giá</th>
+                </tr>
+            </thead>
+            <tbody>
+                <ng-container *ngFor="let chiTiet of chiTietPhieuDichVuList">
+                    <tr *ngFor="let dichVu of chiTiet; let i=index">
+                        <td style="width: 30px;" class="align-middle">{{i+1}}</td>
+                        <td class="align-middle">{{dichVu.tenDichVu}}</td>
+                        <td class="align-middle">
+                            <label class="form-label me-0 mb-0" translate>{{dichVu.donVi}}</label>
+                        </td>
+                        <td class="align-middle">
+                            <div class="">{{dichVu.soLuong}}</div>
+                        </td>
+                        <td class="align-middle">
+                            <div class="">{{dichVu.donGia | number:'1.0':'en-US'}}</div>
+                        </td>
+                    </tr>
+                </ng-container>
+            </tbody>
+        </table>
+    </div>
+</div>

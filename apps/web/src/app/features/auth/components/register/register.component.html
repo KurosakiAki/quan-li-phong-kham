@@ -1,0 +1,75 @@
+<div class="w-100 h-lg-100 row m-0">
+    <div class="header">
+        <button class="arrow btn-lg btn link-primary" (click)="goBack()">
+            <fa-icon [icon]="faArrowLeft" style="margin-right: 10px;"></fa-icon>
+            Trang chủ
+        </button>
+    </div>
+    <div class="col-lg-6 d-none d-lg-block illustration">
+        <p class="title mt-4">Đăng ký</p>
+        <p class="text-muted description">
+            Truy cập vào hồ sơ sức khỏe của bạn một cách an toàn và thuận tiện.
+        </p>
+        <div class="d-flex justify-content-center">
+            <img src="../../../../../assets/Register.png">
+        </div>
+    </div>
+    <div class="col-lg-6 d-block">
+        <div class="d-flex justify-content-center align-items-center h-100 mt-5 mt-lg-0">
+            <div class="card float-center p-3 px-5 mx-4 h-100 w-100">
+                <img src="../../../../../assets/login-logo.png" width="117px" height="100px" style="margin:20px auto 0px auto" />
+                <div class="card-body">
+                    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="g-3 mt-4" novalidate #form="ngForm">
+                        <p class="text-center mb-4" style="font-size: 16px; letter-spacing: 0.5px;">Vui lòng nhập thông tin sau để đăng ký</p>
+                        <div class="form-group mb-3">
+                            <label for="formUsername" class="required form-label" translate>
+                                Username
+                            </label>
+                            <div class="">
+                                <input id="formUsername" type="text" name="username" formControlName="username" class="form-control" required placeholder="{{'Tài khoản' | translate}}">
+                                <control-error-message [control]="registerForm.controls['username']" *ngIf="registerForm.controls['username'].touched"></control-error-message>
+                            </div>
+                        </div>
+                        <div class="form-group mb-3">
+                            <label for="formPassword" class="required form-label" translate>
+                                Mật khẩu
+                            </label>
+                            <div class="">
+                                <input name="password" type="password" id="formPassword" class="form-control" formControlName="password" placeholder="Mật khẩu">
+                                <control-error-message [control]="registerForm.controls['password']" *ngIf="registerForm.controls['password'].touched"></control-error-message>
+                            </div>
+                        </div>
+                        <div class="form-group mb-3">
+                            <label for="formRePassword" class="required form-label" translate>
+                                Nhập lại mật khẩu
+                            </label>
+                            <div class="">
+                                <input name="confirmPassword" type="password" id="formRePassword" class="form-control" formControlName="confirmPassword"
+                                placeholder="Xác nhận mật khẩu">
+                                <control-error-message
+                                  [control]="registerForm.controls['confirmPassword']"
+                                  *ngIf="registerForm.controls['confirmPassword'].touched"
+                                ></control-error-message>
+                                <div class="text-danger" *ngIf="form.submitted">
+                                    <div *ngIf="!registerForm.invalid && (registerForm.value.password !== registerForm.value.confirmPassword)" translate>
+                                        Mật khẩu không khớp
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                          <make-form-touched [form]="registerForm">
+                            <button class="mb-3 btn btn-lg w-100 btn-save" type="submit" translate [disabled]="registerForm.invalid" style="background: #03ACF2; color: white;">Đăng ký</button>
+                          </make-form-touched>
+                        </div>
+                    </form>
+                    
+                    <div class="d-flex mt-2" *ngIf="appState.config.enableTranslate">
+                        <button class="btn btn-light" (click)="selectLang('en')">English</button>
+                        <button class="btn btn-light mx-2" (click)="selectLang('vi')">Tiếng Việt</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

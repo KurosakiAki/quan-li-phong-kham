@@ -1,0 +1,109 @@
+.form-control:focus{
+    box-shadow: none !important;
+    border-color: #03ACF2;
+}
+
+a{
+    text-decoration: none;
+    cursor: pointer;
+    font-size: 18px;
+}
+
+.badge{
+    font-size: 11px;
+    padding: 6px;
+    border-radius: 3px;
+}
+
+.bg-confirmed{
+    background-color: #5470C6;
+}
+
+.bg-info{
+    background-color: #17a2b8 !important;
+}
+
+.date-box{
+    border: 1px dashed #ADB5BD;
+    border-radius: 2px;
+}
+
+.select-date{
+    margin-left: 12px;
+    margin-right: 12px;
+
+    .calendar-icon{
+        margin-right: 12px;
+        color: #ADB5BD;
+    }
+
+    .form-control{
+        border: none;
+        width: 102px;
+        padding-left: 4px;
+        color: #03ACF2;
+        font-weight: 700;
+        background-color: #FFFFFF;
+        cursor: pointer;
+    }
+
+    .form-check{
+        padding-top: 6px;
+        padding-bottom: 6px;
+    }
+
+    .form-check-label:hover, .form-check-input:hover+.form-check-label{
+        color: #03ACF2;
+    }
+
+    .form-check-input:focus{
+        border: 1px #ADB5BD solid;
+    }
+
+    .form-check-input, .form-check-label{
+        cursor: pointer;
+    }
+}
+
+.form-select{
+    cursor: pointer;
+    border: none;
+    width: auto;
+}
+
+.input-group .form-control{
+    border: none;
+    padding: 6px 12px 6px 0px;
+}
+
+.search-box{
+    border: 1px dashed #ADB5BD;
+    border-radius: 2px;
+    width: 33%;
+
+    select option{
+        border-radius: 2px;
+    }
+}
+
+.action.btn{
+    padding: 0 !important;
+    margin: 4px 8px;
+}
+
+.action.btn:focus{
+    box-shadow: none !important;
+}
+
+.lock{
+    &:hover{
+        cursor: default;
+        
+    }
+}
+
+@media (max-width: 991.98px) {
+    .search-box{
+        width: 100%;
+    }
+}

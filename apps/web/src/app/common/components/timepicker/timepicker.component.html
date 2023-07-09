@@ -1,0 +1,19 @@
+<input
+    class="form-control"
+    readonly
+    [value]="viewValue"
+    [ngbPopover]="popContent"
+    placement="bottom-end"
+    #popover="ngbPopover"
+    [autoClose]="'outside'"
+    (shown)="onPopoverShow()"
+    (blur)="onBlur($event)"
+    (keydown.enter)="onEnter($event)"
+    (focus)="onFocus()"
+    [disabled]="disabled" placeholder="{{'Giờ khám' | translate}}"/>
+
+<ng-template #popContent>
+    <ul class="time-select" (mousedown)="onListMouseDown()" >
+        <li *ngFor="let item of times" (mousedown)="selectTime(item)">{{item.text}}</li>
+    </ul>
+</ng-template>

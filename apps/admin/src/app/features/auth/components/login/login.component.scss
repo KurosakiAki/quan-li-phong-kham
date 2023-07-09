@@ -1,0 +1,13 @@
+.btn-save{
+    border: #03ACF2;
+    &:focus{
+        box-shadow: 0 0 0 0.2rem rgb(62, 212, 212, 0.3);
+    }
+}
+
+.form-control{
+    &:focus{
+        box-shadow: none !important;
+        border-color: #03ACF2;
+    }
+}

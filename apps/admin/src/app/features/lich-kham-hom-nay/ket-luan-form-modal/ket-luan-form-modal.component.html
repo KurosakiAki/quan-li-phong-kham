@@ -1,0 +1,25 @@
+<form novalidate [formGroup]="lichKhamFormModal">
+    <div class="modal-header">
+        <div class="modal-title">
+            <h4 translate>Kết luận khám</h4>
+        </div>
+    </div>
+
+    <div class="modal-body">
+        <div class="form-group row">
+            <label class="required form-label" translate>Chẩn đoán</label>
+            <div class="">
+                <input type="text" name="chanDoan" class="form-control" formControlName="chanDoan">
+                <control-error-message [control]="lichKhamFormModal.controls['chanDoan']" *ngIf="lichKhamFormModal.controls['chanDoan'].touched"></control-error-message>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-footer">
+        <button class="btn btn btn-secondary" type="submit" (click)="cancel()" translate>Đóng</button>
+        <button class="btn btn-primary" type="submit" (click)="onSubmit()" translate>
+            <fa-icon [icon]="faSave"></fa-icon>
+            Lưu
+        </button>
+    </div>
+</form>

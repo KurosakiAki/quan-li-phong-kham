@@ -1,0 +1,124 @@
+<m-page-header>
+    <m-page-title>
+        {{'Danh sách bác sĩ' | translate}}
+    </m-page-title>
+</m-page-header>
+<m-page-container>
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-sm-4">
+                    <div class="input-group">
+                        <span class="input-group-text">
+                            <fa-icon [icon]="faSearch" class="fa-xs"></fa-icon>
+                        </span>
+                        <input type="text" class="form-control" placeholder="{{'Tìm kiếm theo mã số, tên, sdt, email' | translate}}"
+                            (keyup)="updateFilter($event)" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="mt-3 card">
+        <div *ngIf="this.bacSiList.length === 0" class="d-flex justify-content-center">
+            <span class="mt-4 mb-4" translate>Không có dữ liệu để hiển thị</span>
+        </div>
+        <div *ngIf="this.bacSiList.length > 0">
+            <ngx-datatable class="material" [rows]="bacSiList" [headerHeight]="$any('auto')" [columnMode]="'force'" [limit]="params.limit" [offset]="tableOffset"
+            [footerHeight]="$any('auto')" [rowHeight]="'auto'" [scrollbarV]="false" [sorts]="[{prop: 'ID', dir: 'desc'}]"
+                [limit]="20" [scrollbarH]="screenSize.smallerThan.xl">
+
+                <ngx-datatable-column name="ID" [width]="50">
+                    <ng-template let-row="row" ngx-datatable-cell-template>
+                        {{row.id}}
+                    </ng-template>
+                </ngx-datatable-column>
+
+                <ngx-datatable-column name="referenceId">
+                    <ng-template let-column="column" ngx-datatable-header-template>
+                        <span translate>Mã bác sĩ</span>
+                    </ng-template>
+                    <ng-template let-row="row" ngx-datatable-cell-template>
+                        {{row.referenceId}}
+                    </ng-template>
+                </ngx-datatable-column>
+
+                <ngx-datatable-column name="fullname">
+                    <ng-template let-column="column" ngx-datatable-header-template>
+                        <span translate>Tên bác sĩ</span>
+                    </ng-template>
+                    <ng-template let-row="row" ngx-datatable-cell-template>
+                        {{row.fullname}}
+                    </ng-template>
+                </ngx-datatable-column>
+
+                <ngx-datatable-column name="specialistName">
+                    <ng-template let-column="column" ngx-datatable-header-template>
+                        <span translate>Chuyên khoa</span>
+                    </ng-template>
+                    <ng-template let-row="row" ngx-datatable-cell-template>
+                        {{row.specialistName}}
+                    </ng-template>
+                </ngx-datatable-column>
+
+                <ngx-datatable-column name="bithday" [width]="100">
+                    <ng-template let-column="column" ngx-datatable-header-template>
+                        <span translate>Tuổi</span>
+                    </ng-template>
+                    <ng-template let-row="row" ngx-datatable-cell-template>
+                        {{row.tuoi}}
+                    </ng-template>
+                </ngx-datatable-column>
+
+                <ngx-datatable-column name="gender" [width]="100">
+                    <ng-template let-column="column" ngx-datatable-header-template>
+                        <span translate>Giới tính</span>
+                    </ng-template>
+                    <ng-template let-row="row" ngx-datatable-cell-template>
+                        {{row.gender}}
+                    </ng-template>
+                </ngx-datatable-column>
+
+                <ngx-datatable-column name="email">
+                    <ng-template let-column="column" ngx-datatable-header-template>
+                        <span translate>Email</span>
+                    </ng-template>
+                    <ng-template let-row="row" ngx-datatable-cell-template>
+                        {{row.email}}
+                    </ng-template>
+                </ngx-datatable-column>
+
+                <ngx-datatable-column name="phone">
+                    <ng-template let-column="column" ngx-datatable-header-template>
+                        <span translate>Số điện thoại</span>
+                    </ng-template>
+                    <ng-template let-row="row" ngx-datatable-cell-template>
+                        {{row.phone}}
+                    </ng-template>
+                </ngx-datatable-column>
+
+                <ngx-datatable-column name="address">
+                    <ng-template let-column="column" ngx-datatable-header-template>
+                        <span translate>Địa chỉ</span>
+                    </ng-template>
+                    <ng-template let-row="row" ngx-datatable-cell-template>
+                        {{row.address}}
+                    </ng-template>
+                </ngx-datatable-column>
+
+                <ngx-datatable-footer>
+                    <ng-template let-rowCount="rowCount" let-pageSize="pageSize" let-selectedCount="selectedCount"
+                        let-curPage="curPage" let-offset="offset" ngx-datatable-footer-template>
+                        <div class="w-100">
+                            <m-datatable-footer [params]="{page: curPage, limit: params.limit}"
+                                [totalRows]="bacSiList.length"
+                                (footerChangeEvent)="footerChangeEvent($event)">
+                            </m-datatable-footer>
+                        </div>
+                    </ng-template>
+                </ngx-datatable-footer>
+            </ngx-datatable>
+        </div>
+    </div>
+</m-page-container>

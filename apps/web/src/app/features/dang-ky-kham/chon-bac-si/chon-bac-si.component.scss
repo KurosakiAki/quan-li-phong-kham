@@ -1,0 +1,31 @@
+.container-fluid{
+    padding-top: 10%;
+    padding: 10% 10% 0px 10%;
+}
+
+.title{
+    font-size: 23px;
+    font-weight: 500;
+}
+
+.intro{
+    font-size: 44px;
+    font-weight: 700;
+}
+
+.sub-intro{
+    font-size: 23px;
+    font-weight: 400;
+}
+
+.social a{
+    margin-top: 20px;
+    margin-right: 10px;
+    text-decoration: none;
+    cursor: pointer;
+    font-size: 17px;
+}
+
+:host ::ng-deep .accordion-button:focus{
+    box-shadow: none !important;
+}

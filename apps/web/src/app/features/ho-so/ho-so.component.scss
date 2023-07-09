@@ -1,0 +1,28 @@
+.header{
+  height: fit-content;
+  padding: 0px 12px;
+}
+
+.arrow{
+  font-weight: 500;
+  color: #00579B !important;
+  padding: 0 !important;
+  margin: 8px 0px;
+  &:focus{
+   box-shadow: none; 
+  }
+}
+
+.benh-nhan{
+    font-size: 14px;
+    font-weight: 400;
+}
+
+.action.btn{
+    padding: 0 !important;
+    margin: 4px 8px;
+}
+
+.action.btn:focus{
+    box-shadow: none !important;
+}

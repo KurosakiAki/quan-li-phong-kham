@@ -1,0 +1,226 @@
+<m-page-header>
+    <m-page-title>
+        {{'Quản lý lịch khám' | translate}}
+    </m-page-title>
+</m-page-header>
+<m-page-container>
+    <div class="card">
+        <div class="card-body">
+            <div class="d-flex flex-column flex-lg-row justify-content-lg-start">
+                <div class="date-box">
+                    <div class="select-date d-flex flex-column flex-sm-row">
+                        <div class="d-flex flex-row">
+                            <span class="d-none d-sm-flex align-self-center calendar-icon">
+                                <fa-icon [icon]="faCalendars" class="fa-lg"></fa-icon>
+                            </span>
+                            <div class="d-flex justify-content-start" *ngIf="!allDate">
+                                <div class="align-self-center mb-sm-0 pr-2">
+                                    Từ
+                                </div>
+                                <input class="form-control" (click)="dF.toggle()" placeholder="dd/mm/yyyy" 
+                                    [(ngModel)]="dateFrom" [value]="dateFrom" ngbDatepicker #dF="ngbDatepicker" 
+                                    (dateSelect)="onDateFromSelect($event)" readonly>
+                            </div>
+                            <div class="d-flex justify-content-start" *ngIf="!allDate">
+                                <div class="align-self-center mb-sm-0 pr-2">
+                                    Đến
+                                </div>
+                                <input class="form-control" (click)="dT.toggle()" placeholder="dd/mm/yyyy" 
+                                    [(ngModel)]="dateTo" [value]="dateTo" ngbDatepicker #dT="ngbDatepicker" 
+                                    (dateSelect)="onDateToSelect($event)" readonly>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-start align-self-sm-center">
+                            <div class="form-check m-0">
+                                <input class="form-check-input shadow-none" type="checkbox" value="" id="check" 
+                                    (click)="onCheckboxClick()">
+                                <label class="form-check-label" for="check">
+                                    Tất cả
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-2 mt-lg-0 search-box ms-0 ms-lg-3">
+                    <div class="input-group">
+                        <div class="form-inline">
+                            <select class="form-select shadow-none" [(ngModel)]="statusFilter" (ngModelChange)="onStatusFilterChange()">
+                                <option [ngValue]="null">Trạng thái</option>
+                                <option [ngValue]="status" *ngFor="let status of statusList">{{status}}</option>
+                            </select>
+                        </div>
+                        <input type="text" class="form-control" placeholder="{{'Tìm kiếm theo tên, số điện thoại' | translate}}"
+                            [(ngModel)]="searchString" (keyup)="updateFilter()" />
+                    </div>
+                </div>
+                <div class="d-flex mt-2 mt-lg-0 ms-lg-auto">
+                    <button class="w-100 btn-sm-block btn btn-success" (click)="openFormModal()">
+                        <span class="text-white" translate>
+                            <fa-icon style="margin-right: 5px;" [icon]="faPlus"></fa-icon>
+                            Thêm lịch khám
+                        </span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="mt-3 card">
+        <div *ngIf="this.lichKhamList.length === 0" class="d-flex justify-content-center">
+            <span class="mt-4 mb-4" translate>Không có dữ liệu để hiển thị</span>
+        </div>
+        <div *ngIf="this.lichKhamList.length > 0">
+            <ngx-datatable class="material" [rows]="lichKhamList" [headerHeight]="$any('auto')" [columnMode]="'force'" [limit]="params.limit" [offset]="tableOffset"
+            [footerHeight]="$any('auto')" [rowHeight]="'auto'" [scrollbarV]="false" [sorts]="[{prop: 'id', dir: 'desc'}]"
+            [limit]="20" [scrollbarH]="screenSize.smallerThan.xl">
+
+                <ngx-datatable-row-detail [rowHeight]="80">
+                    <ng-template let-row="row" let-expanded="expanded" ngx-datatable-row-detail-template>
+                      <div style="padding-left:54.4px;">
+                        <div><strong>Địa chỉ</strong>: {{ row.diaChi }}</div>
+                        <div><strong>Email</strong>: {{ row.email }}</div>
+                        <div><strong>Chẩn đoán</strong>: {{ row.chanDoan }}</div>
+                      </div>
+                    </ng-template>
+                </ngx-datatable-row-detail>
+
+                <ngx-datatable-column 
+                    [width]="30"
+                    [sortable]="false"
+                    [draggable]="true"
+                >
+                    <ng-template let-row="row" let-expanded="expanded" ngx-datatable-cell-template>
+                        <a
+                            [class.datatable-icon-right]="!expanded"
+                            [class.datatable-icon-down]="expanded"
+                            (click)="toggleExpandRow(row)"
+                            class="text-muted"
+                        ></a>
+                    </ng-template>
+                </ngx-datatable-column>
+
+                <ngx-datatable-column name="ID" [width]="60">
+                    <ng-template let-row="row" ngx-datatable-cell-template>
+                        {{row.id}}
+                    </ng-template>
+                </ngx-datatable-column>
+
+                <ngx-datatable-column name="tenBenhNhan">
+                    <ng-template let-column="column" ngx-datatable-header-template>
+                        <span translate>Tên bệnh nhân</span>
+                    </ng-template>
+                    <ng-template let-row="row" ngx-datatable-cell-template>
+                        {{row.tenBenhNhan}}
+                    </ng-template>
+                </ngx-datatable-column>
+
+                <ngx-datatable-column name="soDienThoai">
+                    <ng-template let-column="column" ngx-datatable-header-template>
+                        <span translate>Số điện thoại</span>
+                    </ng-template>
+                    <ng-template let-row="row" ngx-datatable-cell-template>
+                        {{row.soDienThoai}}
+                    </ng-template>
+                </ngx-datatable-column>
+
+                <ngx-datatable-column name="thoiGianKham" [width]="110" [draggable]="true">
+                    <ng-template let-column="column" ngx-datatable-header-template>
+                        <span translate>Ngày</span>
+                    </ng-template>
+                    <ng-template let-row="row" ngx-datatable-cell-template>
+                        {{row.thoiGianKham | date:'dd/MM/yyyy'}}
+                    </ng-template>
+                </ngx-datatable-column>
+
+                <ngx-datatable-column name="thoiGianKham" [width]="70" [draggable]="true">
+                    <ng-template let-column="column" ngx-datatable-header-template>
+                        <span translate>Giờ</span>
+                    </ng-template>
+                    <ng-template let-row="row" ngx-datatable-cell-template>
+                        {{row.thoiGianKham | date:'shortTime'}}
+                    </ng-template>
+                </ngx-datatable-column>
+
+                <ngx-datatable-column name="tenBacSi">
+                    <ng-template let-column="column" ngx-datatable-header-template>
+                        <span translate>Bác Sĩ</span>
+                    </ng-template>
+                    <ng-template let-row="row" ngx-datatable-cell-template>
+                        {{row.tenBacSi}}
+                    </ng-template>
+                </ngx-datatable-column>
+
+                <ngx-datatable-column name="lyDo">
+                    <ng-template let-column="column" ngx-datatable-header-template>
+                        <span translate>Lý do</span>
+                    </ng-template>
+                    <ng-template let-row="row" ngx-datatable-cell-template>
+                        {{row.lyDo}}
+                    </ng-template>
+                </ngx-datatable-column>
+
+                <ngx-datatable-column name="trangThai" [width]="120">
+                    <ng-template let-column="column" ngx-datatable-header-template>
+                        <span translate>Trạng thái</span>
+                    </ng-template>
+                    <ng-template let-row="row" ngx-datatable-cell-template>
+                        <span class="badge bg-info text-light" 
+                        *ngIf="row.trangThai === 'Chờ xác nhận'">Chờ xác nhận</span>
+                        <span class="badge bg-confirmed text-light" 
+                        *ngIf="row.trangThai === 'Xác nhận'">Xác nhận</span>
+                        <span class="badge bg-warning text-light" 
+                        *ngIf="row.trangThai === 'Chờ khám'">Chờ khám</span>
+                        <span class="badge bg-success text-light" 
+                        *ngIf="row.trangThai === 'Đã khám'">Đã khám</span>
+                        <span class="badge bg-danger text-light" 
+                        *ngIf="row.trangThai === 'Hủy bỏ'">Hủy bỏ</span>
+                        <span class="badge bg-secondary text-light" 
+                        *ngIf="row.trangThai === 'Quá hạn'">Quá hạn</span>
+                    </ng-template>
+                </ngx-datatable-column>
+
+                <ngx-datatable-column name="Action" [sortable]="false">
+                    <ng-template let-column="column" ngx-datatable-header-template>
+                        <span translate>Thao tác</span>
+                    </ng-template>
+                    <ng-template let-row="row" ngx-datatable-cell-template>
+                        <button class="action btn link-primary" [ngbTooltip]="'Sửa' | translate" 
+                            (click)="openFormModal(row)"
+                            *ngIf="((row.trangThai === 'Đã khám' && role === 'DOCTOR') || row.trangThai !== 'Đã khám') && row.trangThai !== 'Quá hạn'">
+                            <fa-icon [icon]="faPencil" class="icon-btn"></fa-icon>
+                        </button>
+                        <button class="action btn link-success" [ngbTooltip]="'Xác nhận' | translate" 
+                            (click)="confirmLichKham(row)" *ngIf="row.trangThai === 'Chờ xác nhận'">
+                            <fa-icon [icon]="faCalendarCheck" class="icon-btn"></fa-icon>
+                        </button>
+                        <button class="action btn link-warning" [ngbTooltip]="'Lập phiếu khám' | translate" 
+                            (click)="printPhieuKham(row)" *ngIf="row.trangThai == 'Xác nhận'">
+                            <fa-icon [icon]="faCheckToSlot" class="icon-btn"></fa-icon>
+                        </button>
+                        <button class="action btn link-danger" [ngbTooltip]="'Hủy hẹn' | translate"
+                            (click)="cancelLichKham(row)"
+                            *ngIf="row.trangThai != 'Hủy bỏ' && row.trangThai != 'Đã khám' && row.trangThai != 'Quá hạn'">
+                            <fa-icon [icon]="faCalendarXmark" class="icon-btn"></fa-icon>
+                        </button>
+                        <button class="action btn link-secondary" [ngbTooltip]="'Xóa' | translate"
+                            (click)="openComfirmModal(row)" *ngIf="role === 'ADMIN'">
+                            <fa-icon class="icon-btn" [icon]="faTrashAlt"></fa-icon>
+                        </button>
+                    </ng-template>
+                </ngx-datatable-column>
+
+                <ngx-datatable-footer>
+                    <ng-template let-rowCount="rowCount" let-pageSize="pageSize" let-selectedCount="selectedCount"
+                        let-curPage="curPage" let-offset="offset" ngx-datatable-footer-template>
+                        <div class="w-100">
+                            <m-datatable-footer [params]="{page: curPage, limit: params.limit}"
+                                [totalRows]="lichKhamList.length"
+                                (footerChangeEvent)="footerChangeEvent($event)">
+                            </m-datatable-footer>
+                        </div>
+                    </ng-template>
+                </ngx-datatable-footer>
+            </ngx-datatable>
+        </div>
+    </div>
+</m-page-container>

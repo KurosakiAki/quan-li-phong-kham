@@ -1,0 +1,30 @@
+<form novalidate [formGroup]=" roleForm" #form="ngForm">
+    <div class="modal-header">
+        <div class="modal-title">
+            <h4 translate>Thêm tài khoản</h4>
+        </div>
+    </div>
+
+    <div class="modal-body">
+        <div class="row">
+            <h4 translate>Chọn vai trò</h4>
+        </div>
+        <div class="form-group row">
+            <label class="form-label col-form-label required" translate>Vai trò</label>
+            <div class="">
+                <ng-select formControlName="userRoleCode" name="userRoleCode" bindValue="code" bindLabel="name"
+                    [multiple]="false" [closeOnSelect]="true" [searchable]="false" [items]="userRoleList" required
+                    [placeholder]="'-- Chọn vai trò --' | translate">
+                </ng-select>
+                <control-error-message [control]=" roleForm.controls['userRoleCode']" *ngIf=" roleForm.controls['userRoleCode'].touched"></control-error-message>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-footer">
+        <button class="btn btn-secondary" type="submit" (click)="cancel()" translate>Đóng</button>
+        <button class="btn btn-primary" type="submit" (click)="onSubmit()" translate>
+            Tiếp theo
+        </button>
+    </div>
+</form>

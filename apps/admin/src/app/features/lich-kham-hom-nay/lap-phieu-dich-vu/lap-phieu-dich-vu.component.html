@@ -1,0 +1,75 @@
+<form novalidate [formGroup]="phieuDichVuFormModal">
+    <div class="modal-header">
+        <div class="modal-title">
+            <h4 translate>Lập phiếu dịch vụ</h4>
+        </div>
+    </div>
+
+    <div class="modal-body">
+        <div class="form-group row">
+            <label class="required form-label" translate>Chẩn đoán</label>
+            <div class="">
+                <input type="text" name="chanDoan" class="form-control" formControlName="chanDoan">
+                <control-error-message [control]="phieuDichVuFormModal.controls['chanDoan']" *ngIf="phieuDichVuFormModal.controls['chanDoan'].touched"></control-error-message>
+            </div>
+        </div>
+        <ng-container formArrayName="chiTiet">
+            <div class="table-responsive-xl">
+                <table class="table table-hover table-fixed">
+                    <thead>
+                        <tr class="table-primary">
+                            <th scope="col">STT</th>
+                            <th scope="col">Tên dịch vụ</th>
+                            <th scope="col" style="width: 100px; min-width: 100px;">Đơn vị</th>
+                            <th scope="col" style="width: 120px; min-width: 85px;">Số lượng</th>
+                            <th scope="col" style="width: 120px; min-width: 140px;">Đơn giá</th>
+                            <th scope="col" style="width: 35px; min-width: 35px;"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let dichVu of chiTiet.controls; let i=index" [formGroupName]="i">
+                            <td style="width: 30px;" class="align-middle">{{i+1}}</td>
+                            <td class="align-middle">
+                                <ng-select formControlName="dichVuId" name="dichVuId" bindValue="id" bindLabel="tenDichVu"
+                                    (change)="changeDichVu($event, i)" style="min-width: 200px;" class="required"
+                                    [multiple]="false" [closeOnSelect]="true" [searchable]="true" [items]="dichVuList">
+                                </ng-select>
+                            </td>
+                            <td class="align-middle">
+                                <label class="form-label me-0 mb-0" translate [innerHTML]="donVi[i]"></label>
+                            </td>
+                            <td class="align-middle">
+                                <div class="">
+                                    <input type="text" formControlName="soLuong" class="form-control">
+                                </div>
+                            </td>
+                            <td class="align-middle">
+                                <label class="form-label me-0 mb-0" translate [innerHTML]="donGia[i] | number:'1.0':'en-US'"></label>
+                            </td>
+                            <td class="align-middle">
+                                <button class="action btn link-secondary" (click)="removeChiTiet(i)">
+                                    <fa-icon [icon]="faXmark" class="icon-btn"></fa-icon>
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </ng-container>
+        <button class="action btn link-secondary mb-2" (click)="addNewChiTiet()">
+            <fa-icon [icon]="faCirclePlus" size="lg" class="icon-btn"></fa-icon>
+        </button>   
+    </div>
+
+    <div class="modal-footer">
+        <button class="btn btn btn-secondary" type="submit" (click)="cancel()" translate>Đóng</button>
+        <button class="btn btn-primary" type="submit" (click)="onSubmit()" translate>
+            <fa-icon [icon]="faSave"></fa-icon>
+            Lưu
+        </button>
+        <button class="btn btn-success" type="submit" (click)="onSubmit(true)" translate>
+            <fa-icon [icon]="faPrint"></fa-icon>
+            Lưu và In
+        </button>
+    </div>
+</form>

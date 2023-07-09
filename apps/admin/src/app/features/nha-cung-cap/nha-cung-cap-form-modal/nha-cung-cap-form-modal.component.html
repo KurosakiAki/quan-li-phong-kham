@@ -1,0 +1,48 @@
+<form novalidate [formGroup]="nhaCungCapFormModal">
+    <div class="modal-header">
+        <div class="modal-title">
+            <h4 translate *ngIf="isAddNew">Thêm nhà cung cấp</h4>
+            <h4 translate *ngIf="!isAddNew">Sửa nhà cung cấp</h4>
+        </div>
+    </div>
+
+    <div class="modal-body">
+        <div class="form-group row">
+            <label class="required form-label" translate>Tên
+                nhà cung cấp</label>
+            <div class="">
+                <input type="text" name="fullname" class="form-control" formControlName="fullname">
+                <control-error-message [control]="nhaCungCapFormModal.controls['fullname']" *ngIf="nhaCungCapFormModal.controls['fullname'].touched"></control-error-message>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="required form-label" translate>Số điện thoại</label>
+            <div class="">
+                <input type="text" name="phone" class="form-control" formControlName="phone">
+                <control-error-message [control]="nhaCungCapFormModal.controls['phone']" *ngIf="nhaCungCapFormModal.controls['phone'].touched"></control-error-message>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="required form-label" translate>Email</label>
+            <div class="">
+                <input type="text" name="email" class="form-control" formControlName="email">
+                <control-error-message [control]="nhaCungCapFormModal.controls['email']" *ngIf="nhaCungCapFormModal.controls['email'].touched"></control-error-message>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="required form-label" translate>Địa chỉ</label>
+            <div class="">
+                <input type="text" name="address" class="form-control" formControlName="address">
+                <control-error-message [control]="nhaCungCapFormModal.controls['address']" *ngIf="nhaCungCapFormModal.controls['address'].touched"></control-error-message>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-footer">
+        <button class="btn btn btn-secondary" type="submit" (click)="cancel()" translate>Đóng</button>
+        <button class="btn btn-primary" type="submit" (click)="onSubmit()" translate>
+            <fa-icon [icon]="faSave"></fa-icon>
+            Lưu
+        </button>
+    </div>
+</form>

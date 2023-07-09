@@ -1,0 +1,9 @@
+<div class="modal-body text-center">
+    <fa-icon [icon]="faExclamationCircle" class="fa-xl text-warning mb-2" style="font-size: 6em;"></fa-icon>
+    <h2 translate>{{modalParams.title}}</h2>
+    <p translate>{{modalParams.content}}</p>
+    <div>
+        <button class="btn btn-secondary" translate (click)="cancel()">Đóng</button>
+        <button class="btn btn-danger mx-2 text-white" translate (click)="submit()">Xóa</button>
+    </div>
+</div>

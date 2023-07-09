@@ -1,0 +1,126 @@
+<form novalidate [formGroup]="hoaDonFormModal">
+    <div class="modal-header">
+        <div class="modal-title">
+            <h4 translate>Lập hóa đơn</h4>
+        </div>
+    </div>
+
+    <div class="modal-body">
+        <div class="table-responsive-xl">
+            <table class="table table-hover table-fixed">
+                <thead>
+                    <tr class="table-primary">
+                        <th scope="col">STT</th>
+                        <th scope="col">Tên thuốc / dịch vụ</th>
+                        <th scope="col" style="width: 100px; min-width: 100px;">Đơn vị</th>
+                        <th scope="col" style="width: 120px; min-width: 85px;">Số lượng</th>
+                        <th scope="col" style="width: 120px; min-width: 150px;">Đơn giá</th>
+                        <th scope="col" style="width: 120px; min-width: 150px;">Thành tiền</th>
+                        <th scope="col" style="width: 35px; min-width: 35px;"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <td colspan="6" class="align-middle">
+                        <h5 translate class="ps-0">Thuốc</h5>
+                    </td>
+                    <td class="align-middle">
+                        <button class="action btn link-secondary mb-2" (click)="addNewChiTietThuoc()">
+                            <fa-icon [icon]="faCirclePlus" size="lg" class="icon-btn"></fa-icon>
+                        </button>
+                    </td>
+                    <tr></tr>
+                    <ng-container formArrayName="chiTietThuoc">
+                        <tr *ngFor="let thuoc of chiTietThuoc.controls; let i=index" [formGroupName]="i">
+                            <td style="width: 30px;" class="align-middle">{{i+1}}</td>
+                            <td class="align-middle">
+                                <ng-select formControlName="thuocId" name="thuocId" bindLabel="hienThi" [items]="thuocList" bindValue="id"
+                                    (focus)="clickThuoc($event)" [clearable]="false"
+                                    (change)="changeThuoc($event, i)" style="min-width: 200px;" class="required"
+                                    [multiple]="false" [closeOnSelect]="true" [searchable]="true" [hideSelected]="true">
+                                </ng-select>
+                            </td>
+                            <td class="align-middle">
+                                <label class="form-label me-0 mb-0" translate [innerHTML]="donViThuoc[i]"></label>
+                            </td>
+                            <td class="align-middle">
+                                <div class="">
+                                    <input type="text" formControlName="soLuong" class="form-control" (keyup)="thanhTienChangeThuoc(i)">
+                                </div>
+                            </td>
+                            <td class="align-middle">
+                                <div class="">
+                                    <label class="form-label me-0 mb-0" translate [innerHTML]="donGiaThuoc[i] | number:'1.0':'en-US'"></label>
+                                </div>
+                            </td>
+                            <td class="align-middle">
+                                <label class="form-label me-0 mb-0" translate [innerHTML]="thanhTienThuoc[i] | number:'1.0':'en-US'"></label>
+                            </td>
+                            <td class="align-middle">
+                                <button class="action btn link-secondary" (click)="removeChiTietThuoc(i)">
+                                    <fa-icon [icon]="faXmark" class="icon-btn"></fa-icon>
+                                </button>
+                            </td>
+                        </tr>
+                    </ng-container>
+                    <td colspan="6" class="align-middle">
+                        <h5 translate class="ps-0">Dịch vụ</h5>
+                    </td>
+                    <td class="align-middle">
+                        <button class="action btn link-secondary mb-2" (click)="addNewChiTietDichVu()">
+                            <fa-icon [icon]="faCirclePlus" size="lg" class="icon-btn"></fa-icon>
+                        </button>
+                    </td>
+                    <ng-container formArrayName="chiTietDichVu">
+                        <tr *ngFor="let thuoc of chiTietDichVu.controls; let i=index" [formGroupName]="i">
+                            <td style="width: 30px;" class="align-middle">{{i+1}}</td>
+                            <td class="align-middle">
+                                <ng-select formControlName="dichVuId" name="dichVuId" bindValue="id" bindLabel="tenDichVu"
+                                    (change)="changeDichVu($event, i)" style="min-width: 200px;" class="required"
+                                    [multiple]="false" [closeOnSelect]="true" [searchable]="true" [items]="dichVuList">
+                                </ng-select>
+                            </td>
+                            <td class="align-middle">
+                                <label class="form-label me-0 mb-0" translate [innerHTML]="donViDichVu[i]"></label>
+                            </td>
+                            <td class="align-middle">
+                                <div class="">
+                                    <input type="text" formControlName="soLuong" class="form-control" (keyup)="thanhTienChangeDichVu(i)">
+                                </div>
+                            </td>
+                            <td class="align-middle">
+                                <div class="">
+                                    <label class="form-label me-0 mb-0" translate [innerHTML]="donGiaDichVu[i] | number:'1.0':'en-US'"></label>
+                                </div>
+                            </td>
+                            <td class="align-middle">
+                                <label class="form-label me-0 mb-0" translate [innerHTML]="thanhTienDichVu[i] | number:'1.0':'en-US'"></label>
+                            </td>
+                            <td class="align-middle">
+                                <button class="action btn link-secondary" (click)="removeChiTietDichVu(i)">
+                                    <fa-icon [icon]="faXmark" class="icon-btn"></fa-icon>
+                                </button>
+                            </td>
+                        </tr>
+                    </ng-container>
+                    <tr>
+                        <td colspan="7">
+                            <div class="text-right"><strong>Tổng cộng: <label class="form-label me-0 mb-0" translate [innerHTML]="tongTien | number:'1.0':'en-US'"></label></strong></div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="modal-footer">
+        <button class="btn btn btn-secondary" type="submit" (click)="cancel()" translate>Đóng</button>
+        <button class="btn btn-primary" type="submit" (click)="onSubmit()" translate>
+            <fa-icon [icon]="faSave"></fa-icon>
+            Lưu
+        </button>
+        <button class="btn btn-success" type="submit" (click)="onSubmit(true)" translate>
+            <fa-icon [icon]="faPrint"></fa-icon>
+            Lưu và In
+        </button>
+    </div>
+</form>

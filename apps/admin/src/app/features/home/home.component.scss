@@ -1,0 +1,50 @@
+@import "../../../style/variables.scss";
+
+.home{
+    min-height: calc(100vh - $header-height);
+    min-width: 100vh;
+    margin: 0;
+}
+
+
+
+.circle span {
+    display: table-cell;
+    vertical-align: middle;
+    height: 50px;
+    width: 50px;
+    text-align: center;
+}
+
+.dollar {
+    background: #e0f8e9;
+    border-radius: 50%;
+    color: black;
+    display: inline-block;
+    height: 50px;
+    font-weight: bold;
+    font-size: 1.2em;
+    width: 50px;
+}
+
+.cart {
+    background: #f6f6fe;
+    border-radius: 50%;
+    color: black;
+    display: inline-block;
+    height: 50px;
+    font-weight: bold;
+    font-size: 1.2em;
+    width: 50px;
+}
+
+.customers {
+    background: #ffe5cb;
+    border-radius: 50%;
+    color: black;
+    display: inline-block;
+    height: 50px;
+    font-weight: bold;
+    font-size: 1.2em;
+    width: 50px;
+  }

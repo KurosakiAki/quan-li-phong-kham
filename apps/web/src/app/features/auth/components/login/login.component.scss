@@ -1,0 +1,56 @@
+.illustration{
+    padding: 0px 20px;
+}
+
+.title{
+    font-weight: 700;
+    font-size: 34px;
+    line-height: 38px;
+    text-align: center;
+    color: #00579B;
+    letter-spacing: 2px;
+}
+
+.description{
+    font-weight: 400;
+    font-size: 22px;
+    line-height: 36px;
+    text-align: center;
+    letter-spacing: 1px;
+}
+
+.header{
+  height: fit-content;
+  padding: 20px 15px 0px 15px;
+}
+
+.arrow{
+  font-weight: 500;
+  color: #00579B !important;
+  padding: 0 !important;
+  margin: 8px 16px 8px 6px;
+  &:focus{
+   box-shadow: none; 
+  }
+}
+
+//login-form
+
+.btn-save{
+    border: #03ACF2;
+    &:focus{
+        box-shadow: 0 0 0 0.2rem rgb(62, 212, 212, 0.3);
+    }
+}
+
+.form-control{
+    &:focus{
+        box-shadow: none !important;
+        border-color: #03ACF2;
+    }
+}
+
+.card{
+    border: #03ACF2 solid 1px;
+    border-radius: 20px;
+}

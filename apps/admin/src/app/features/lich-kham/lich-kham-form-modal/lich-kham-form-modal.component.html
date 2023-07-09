@@ -1,0 +1,127 @@
+<form novalidate [formGroup]="lichKhamForm" #form="ngForm">
+    <div class="modal-header">
+        <div class="modal-title">
+            <h4 translate *ngIf="isAddNew">Thêm lịch khám</h4>
+            <h4 translate *ngIf="!isAddNew">Sửa lịch khám</h4>
+        </div>
+    </div>
+
+    <div class="modal-body">
+        <div class="row">
+            <h4 translate>Thông tin</h4>
+        </div>
+        <div class="form-group row" *ngIf="lichKham.trangThai !== 'Đã khám' || isAddNew">
+            <div class="mt-2">
+                <ng-select [(ngModel)]="selectedOption" (ngModelChange)="onSelectChange($event)"
+                    [multiple]="false" [closeOnSelect]="true" [searchable]="true" [ngModelOptions]="{standalone: true}"
+                    [placeholder]="'Tìm kiếm theo mã số, tên hoặc số điện thoại' | translate">
+                    <ng-option *ngFor="let benhNhan of benhNhanList" [value]="benhNhan.id">
+                        {{benhNhan.referenceId}} - {{benhNhan.fullname}} - {{benhNhan.phone}}
+                    </ng-option>
+                </ng-select>
+            </div>
+        </div>
+        <div class="row" *ngIf="lichKham.trangThai !== 'Đã khám' || isAddNew">
+            <div class="form-group col-md-6">
+                <label class="required form-label col-form-label" translate>Tên bệnh nhân</label>
+                <div class="">
+                    <input type="text" name="tenBenhNhan" class="form-control" formControlName="tenBenhNhan" placeholder="Họ và tên">
+                    <control-error-message [control]="lichKhamForm.controls['tenBenhNhan']" *ngIf="lichKhamForm.controls['tenBenhNhan'].touched"></control-error-message>
+                </div>
+            </div>
+            <div class="form-group col-md-6">
+                <label class="form-label col-form-label required" translate>Điện thoại</label>
+                <div class=" ">
+                    <input class="form-control" autocomplete="off" placeholder="Số điện thoại"
+                        oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');" type="text"
+                        name="soDienThoai" formControlName="soDienThoai">
+                    <control-error-message [control]="lichKhamForm.controls['soDienThoai']" *ngIf="lichKhamForm.controls['soDienThoai'].touched"></control-error-message>
+                    <div class="text-danger" *ngIf="lichKhamForm.valid && form.submitted && validatePhone()" translate>
+                        Không phải là số điện thoại Việt Nam
+                    </div>
+                </div>
+            </div>    
+        </div>
+        <div class="row" *ngIf="lichKham.trangThai !== 'Đã khám' || isAddNew">
+            <div class="form-group col-md-6">
+                <label class="required form-label col-form-label" translate>Bác sĩ</label>
+                <div class="">
+                    <ng-select formControlName="bacSiId" name="bacSiId"
+                        [multiple]="false" [closeOnSelect]="true" [searchable]="false" required
+                        [placeholder]="'-- Chọn bác sĩ  --' | translate" (change)="onBacSiChange($event)">
+                        <ng-option *ngFor="let bacSi of bacSiList" [value]="bacSi.id">
+                            {{bacSi.referenceId}} - {{bacSi.fullname}} - {{bacSi.phone}}
+                        </ng-option>
+                    </ng-select>
+                    <control-error-message [control]="lichKhamForm.controls['bacSiId']" *ngIf="lichKhamForm.controls['bacSiId'].touched"></control-error-message>
+                </div>
+            </div>
+            <div class="form-group col-md-6">
+                <label class="form-label col-form-label required" translate>Trạng thái</label>
+                <div class=" ">
+                    <ng-select formControlName="trangThai" name="trangThai"
+                        [multiple]="false" [closeOnSelect]="true" [searchable]="false" [items]="statusList" class="required"
+                        [placeholder]="'-- Chọn trạng thái --' | translate">
+                    </ng-select>
+                    <control-error-message [control]="lichKhamForm.controls['trangThai']" *ngIf="lichKhamForm.controls['trangThai'].touched"></control-error-message>
+                </div>
+            </div>    
+        </div>
+        <div class="row" *ngIf="lichKham.trangThai !== 'Đã khám' || isAddNew">
+            <div class="form-group col-md-6">
+                <label class="required form-label col-form-label" translate>Ngày khám</label>
+                <div class="">
+                    <input class="form-control" (click)="d.toggle()" placeholder="dd/mm/yyyy" [disabled]="!lichKhamForm.getRawValue().bacSiId"
+                        name="ngayKham" formControlName="ngayKham" ngbDatepicker #d="ngbDatepicker" 
+                        [markDisabled]="isDisabled" (dateSelect)="onDateSelect($event)" [minDate]="minDate">
+                    <control-error-message [control]="lichKhamForm.controls['ngayKham']" *ngIf="lichKhamForm.controls['ngayKham'].touched"></control-error-message>
+                </div>
+            </div>
+            <div class="form-group col-md-6">
+                <label class="form-label col-form-label required" translate>Giờ khám</label>
+                <div class=" ">
+                    <m-timepicker formControlName="gioKham" class="time-error" [disabled]="!lichKhamForm.value.ngayKham" [gioKham]="gioKhamTrongNgay"></m-timepicker>
+                    <control-error-message [control]="lichKhamForm.controls['gioKham']" *ngIf="lichKhamForm.controls['gioKham'].touched"></control-error-message>
+                </div>
+            </div>    
+        </div>
+        <div class="row" *ngIf="lichKham.trangThai !== 'Đã khám' || isAddNew">
+            <div class="form-group col-md-6">
+                <label class="form-label col-form-label" translate>Địa chỉ</label>
+                <div class="">
+                    <input type="text" name="diaChi" class="form-control" formControlName="diaChi" placeholder="Địa chỉ">
+                    <control-error-message [control]="lichKhamForm.controls['diaChi']" *ngIf="lichKhamForm.controls['diaChi'].touched"></control-error-message>
+                </div>
+            </div>
+            <div class="form-group col-md-6" *ngIf="lichKham.trangThai !== 'Đã khám' || isAddNew">
+                <label class="form-label col-form-label required" translate>Email</label>
+                <div class="">
+                    <input type="text" name="email" class="form-control" formControlName="email" placeholder="Email">
+                    <control-error-message [control]="lichKhamForm.controls['email']" *ngIf="lichKhamForm.controls['email'].touched"></control-error-message>
+                </div>
+            </div>    
+        </div>
+        <div class="form-group row" *ngIf="lichKham.trangThai !== 'Đã khám' || isAddNew">
+            <label class="required form-label col-form-label" translate>Lý do</label>
+            <div class="">
+                <textarea name="lyDo" class="form-control" formControlName="lyDo" placeholder="Lý do đến khám" rows="3"></textarea>
+                <control-error-message [control]="lichKhamForm.controls['lyDo']" *ngIf="lichKhamForm.controls['lyDo'].touched"></control-error-message>        
+            </div>
+        </div>
+        <div class="form-group row" *ngIf="role === 'DOCTOR' && lichKham.trangThai === 'Đã khám'">
+            <label class="form-label col-form-label" translate>Chẩn đoán</label>
+            <div class="">
+                <textarea name="chanDoan" class="form-control" formControlName="chanDoan" placeholder="Chẩn đoán của bác sĩ" rows="3"></textarea>
+                <control-error-message [control]="lichKhamForm.controls['chanDoan']" *ngIf="lichKhamForm.controls['chanDoan'].touched"></control-error-message>        
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-footer">
+        <button class="btn btn-secondary" type="submit" (click)="cancel()" translate>Đóng</button>
+        <button class="btn btn-primary" type="submit" (click)="onSubmit()" translate>
+            <fa-icon [icon]="faSave"></fa-icon>
+            Lưu
+        </button>
+    </div>
+</form>

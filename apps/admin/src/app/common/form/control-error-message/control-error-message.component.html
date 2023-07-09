@@ -1,0 +1,14 @@
+<div class="control-invalid" *ngIf="control.errors as errors" [@enterAnimation]>
+  <div *ngIf="errors['required']">{{ (customError && customError.required) ? customError.required : 'Đây là trường bắt buộc.' }}</div>
+  <div *ngIf="errors['email']">{{ (customError && customError.email) ? customError.email : 'Sai định dạng email.' }}</div>
+	<div *ngIf="errors['invalidnumberformat']">{{ (customError && customError.invalidnumberformat) ? customError.invalidnumberformat : 'Sai định dạng số.' }}</div>
+  <div *ngIf="errors['invalidnumber']">{{ (customError && customError.invalidnumber) ? customError.invalidnumber : 'Số không hợp lệ.' }}</div>
+  <div *ngIf="errors['date']">{{ (customError && customError.date) ? customError.date : 'Sai định dạng ngày.' }}</div>
+  <div *ngIf="errors['daterangminmax']">{{ (customError && customError.daterangminmax) ? customError.daterangminmax : 'Ngày không nằm trong khoảng thời gian hợp lệ.' }}</div>
+  <div *ngIf="errors['phonenuminvalid']">{{ (customError && customError.phonenuminvalid) ? customError.phonenuminvalid : 'Số điện thoại không hợp lệ.' }}</div>
+  <div *ngIf="errors['max']">{{ (customError && customError.max) ? customError.max : 'Giá trị vượt quá giá trị tối đa.' }}</div>
+  <div *ngIf="errors['min']">{{ (customError && customError.min) ? customError.min : 'Giá trị chưa đủ giá trị tối thiểu.' }}</div>
+  <div *ngIf="errors['minlength']">{{ (customError && customError.minlength) ? customError.minlength : 'Không đủ độ dài. Độ dài yêu cầu là ' + errors['minlength'].requiredLength }}</div>
+  <div *ngIf="errors['maxlength']">{{ (customError && customError.maxlength) ? customError.maxlength : 'Vượt quá đồ dài tối đa. Độ dài tối đa là ' + errors['maxlength'].requiredLength }}</div>
+  <div *ngIf="errors['matching']">{{ (customError && customError.matching) ? customError.matching : 'Giá trị không khớp'}}</div>
+</div>

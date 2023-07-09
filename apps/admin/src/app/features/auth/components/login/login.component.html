@@ -1,0 +1,42 @@
+<div class="d-flex justify-content-center mt-5">
+    <div class="card float-center p-3">
+        <img src="../../../../../assets/login.png" width="117px" height="100px" style="margin:20px auto 0px auto" />
+        <div class="card-body">
+            <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="g-3 mt-4" novalidate>
+                <div class="form-group mb-3">
+                    <div class="input-group ">
+                        <span class="input-group-text">
+                            <fa-icon [icon]="faUser"></fa-icon>
+                        </span>
+                        <input type="text" name="username" formControlName="username" class="form-control" required placeholder="{{'Tài khoản' | translate}}">
+                    </div>
+                    <control-error-message [control]="loginForm.controls['username']" *ngIf="loginForm.controls['username'].touched"></control-error-message>
+                </div>
+                <div class="form-group mb-3">
+                    <div class="input-group ">
+                        <span class="input-group-text">
+                            <fa-icon [icon]="faLock"></fa-icon>
+                        </span>
+                        <input type="password" name="password" formControlName="password" class="form-control" required placeholder="{{'Mật khẩu' | translate}}">
+                    </div>
+                    <control-error-message [control]="loginForm.controls['password']" *ngIf="loginForm.controls['password'].touched"></control-error-message>
+                </div>
+                <div class="col-12">
+                  <make-form-touched [form]="loginForm">
+                    <button class="mb-3 btn btn-lg w-100 btn-save" type="submit" translate [disabled]="loginForm.invalid" style="background: #00579b; color: white;">Đăng nhập</button>
+                  </make-form-touched>
+                </div>
+            </form>
+
+            <div class="d-flex justify-content-end mt-2">
+                <a style="color: #00579b" [routerLink]="['/auth/forgot-password']" translate>Quên mật
+                    khẩu</a>
+            </div>
+            <div class="d-flex mt-2" *ngIf="appState.config.enableTranslate">
+                <button class="btn btn-light" (click)="selectLang('en')">English</button>
+                <button class="btn btn-light mx-2" (click)="selectLang('vi')">Tiếng Việt</button>
+            </div>
+        </div>
+
+    </div>
+</div>

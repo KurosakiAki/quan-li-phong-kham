@@ -1,0 +1,47 @@
+.action.btn{
+    padding: 0 !important;
+    margin: 0px;
+}
+
+.action.btn:focus{
+    box-shadow: none !important;
+}
+
+:host ::ng-deep .ng-arrow-wrapper{
+    display: none;
+}
+
+:host ::ng-deep .ng-select .ng-select-container {
+    min-height: 20.41px;
+    border: none;
+    border-bottom: 1px dashed;
+    position: static;
+}
+
+:host ::ng-deep .ng-select.ng-select-single .ng-select-container .ng-value-container .ng-input{
+    top: 0px;
+    padding-left: 0px;
+}
+
+:host ::ng-deep .ng-select .ng-select-container .ng-value-container{
+    padding-left: 0px;
+}
+
+:host ::ng-deep .ng-select.ng-select-single .ng-select-container {
+    height: 20.41px;
+}
+
+.form-control{
+    border: none;
+    border-bottom: 1px dashed;
+    padding: 0px;
+}
+
+textarea{
+    border: none !important;
+    background: url(../../../../assets/dot-line.png) repeat;
+    line-height: 20px;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+}

@@ -1,0 +1,98 @@
+@import './style/y-theme';
+@import '~ngx-toastr/toastr';
+@import './style/custom-style.scss';
+@import '~@swimlane/ngx-datatable/index.css';
+@import '~@swimlane/ngx-datatable/themes/material.scss';
+// @import '~@swimlane/ngx-datatable/themes/bootstrap.scss';
+@import '~@swimlane/ngx-datatable/assets/icons.css';
+@import "~@ng-select/ng-select/themes/default.theme.css";
+
+// custom dropzone
+.custom-dropzone-uploader {
+  .dzu-dropzone {
+    overflow: inherit;
+    min-height: 40px;
+    border-style: dashed;
+
+    .dzu-inputLabel {
+      font-size: 13px;
+      margin-bottom: 0;
+      text-align: center;
+    }
+
+    .dzu-previewContainer {
+      padding: 5px;
+      min-height: 15px;
+      progress {
+        display: none;
+      }
+
+      .dzu-previewStatusContainer {
+        .dzu-previewImage {
+          width: 70px;
+          margin-right: 5px;
+          max-height: 50px;
+          max-width: 50px;
+          border-radius: 4px;
+          margin-bottom: 5px;
+          object-fit: cover;
+        }
+
+        progress {
+          width: 50px;
+        }
+      }
+
+      // .dzu-previewFileName {}
+    }
+
+    .dzu-inputLabelWithFiles {
+      background-color: white;
+      margin-top: 5px;
+    }
+
+    .custom-remove-icon {
+      font-size: 20px;
+      background-image: url("data:image/svg+xml;base64,PHN2ZyB2aWV3Qm94PSIwIDAgMTQgMTQiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTUuMCwgMC4wKSIgZmlsbD0iIzMzMzMzMyI+PGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoNC4wLCAwLjApIj48cG9seWdvbiBwb2ludHM9IjcuNzE5IDQuOTY0IDEyLjY5MiAwLjAxNyAxNC4zODkgMS43MTUgOS40MTIgNi42NjYgMTQuMzU0IDExLjYzNCAxMi42NTcgMTMuMzMxIDYuMDE3IDYuNjU3IDcuNzE1IDQuOTYwIj48L3BvbHlnb24+PHBvbHlnb24gcG9pbnRzPSI3LjYxMiA0Ljk2NCA3LjYxNiA0Ljk2MCA5LjMxMyA2LjY1NyAyLjY3NCAxMy4zMzEgMC45NzcgMTEuNjM0IDUuOTE5IDYuNjY2IDAuOTQyIDEuNzE1IDIuNjM5IDAuMDE3Ij48L3BvbHlnb24+PC9nPjwvZz48L3N2Zz4K");
+    }
+  }
+}
+
+.attachment-previewImage {
+  width: 70px;
+  margin-right: 5px;
+  max-height: 50px;
+  max-width: 50px;
+  border-radius: 4px;
+  margin-bottom: 5px;
+  object-fit: cover;
+}
+
+.border-none {
+  border: none !important;
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.notification-popover-body .popover-body{
+  padding: 0;
+}
+
+a{
+  text-decoration: none;
+  &:hover{
+    text-decoration: underline;
+  }
+}
+
+.tooltip-arrow {
+  display: none !important;
+}
+
+.modal-header{
+  background-color: #03ACF2;
+  color: white;
+  padding: 12px;
+}

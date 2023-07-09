@@ -1,0 +1,85 @@
+<div class="modal-header">
+    <div class="modal-title">
+        <h4 translate>Chi tiết</h4>
+    </div>
+</div>
+
+<div class="modal-body">
+    <div class="form-group row">
+        <h4 translate>Thông tin</h4>
+        <div class="row mt-3 nha-cung-cap">
+            <p>Mã bệnh nhân: <strong>{{hoaDon.khachHang?.referenceId}}</strong></p>
+            <div class="col-md-6">
+                <p>Tên bệnh nhân: {{hoaDon.khachHang?.fullname}}</p>
+                <p>Ngày sinh: {{hoaDon.khachHang?.birthday | date: 'dd/MM/YYYY'}}</p>
+                <p>Giới tính: {{hoaDon.khachHang?.gender}}</p>
+            </div>
+            <div class="col-md-6">
+                <p>Email: {{hoaDon.khachHang?.email}}</p>
+                <p>Số điện thoại: {{hoaDon.khachHang?.phone}}</p>
+                <p>Địa chỉ: {{hoaDon.khachHang?.address}}</p>
+            </div>
+        </div>
+    </div>
+    <h4 translate>Hạng mục</h4>
+    <div class="table-responsive-xl mt-3">
+        <table class="table table-hover table-fixed">
+            <thead>
+                <tr class="table-primary">
+                    <th scope="col">STT</th>
+                    <th scope="col">Tên thuốc / dịch vụ</th>
+                    <th scope="col" style="width: 100px; min-width: 100px;">Đơn vị</th>
+                    <th scope="col" style="width: 120px; min-width: 85px;">Số lượng</th>
+                    <th scope="col" style="width: 120px; min-width: 150px;">Đơn giá</th>
+                    <th scope="col" style="width: 120px; min-width: 150px;">Thành tiền</th>
+                </tr>
+            </thead>
+            <tbody>
+                <td colspan="6" class="align-middle">
+                    <h5 translate class="ps-0">Thuốc</h5>
+                </td>
+                <tr></tr>
+                <tr *ngFor="let thuoc of chiTietHoaDonListThuoc; let i=index">
+                    <td style="width: 30px;" class="align-middle">{{i+1}}</td>
+                    <td class="align-middle">{{thuoc.thuoc?.tenThuoc}}</td>
+                    <td class="align-middle">
+                        <label class="form-label me-0 mb-0" translate>{{thuoc.thuoc?.donVi}}</label>
+                    </td>
+                    <td class="align-middle">
+                        <div class="">{{thuoc.soLuong}}</div>
+                    </td>
+                    <td class="align-middle">
+                        <div class="">{{thuoc.donGia | number:'1.0':'en-US'}}</div>
+                    </td>
+                    <td class="align-middle">
+                        <div class="">{{thuoc.thanhTien | number:'1.0':'en-US'}}</div>
+                    </td>
+                </tr>
+                <td colspan="6" class="align-middle">
+                    <h5 translate class="ps-0">Dịch vụ</h5>
+                </td>
+                <tr *ngFor="let dichVu of chiTietHoaDonListDichVu; let i=index">
+                    <td style="width: 30px;" class="align-middle">{{i+1}}</td>
+                    <td class="align-middle">{{dichVu.dichVu?.tenDichVu}}</td>
+                    <td class="align-middle">
+                        <label class="form-label me-0 mb-0" translate>{{dichVu.dichVu?.donVi}}</label>
+                    </td>
+                    <td class="align-middle">
+                        <div class="">{{dichVu.soLuong}}</div>
+                    </td>
+                    <td class="align-middle">
+                        <div class="">{{dichVu.donGia | number:'1.0':'en-US'}}</div>
+                    </td>
+                    <td class="align-middle">
+                        <div class="">{{dichVu.thanhTien | number:'1.0':'en-US'}}</div>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="6">
+                        <div class="text-right"><strong>Tổng cộng: <label class="form-label me-0 mb-0" translate [innerHTML]="hoaDon.tongTien | number:'1.0':'en-US'"></label></strong></div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

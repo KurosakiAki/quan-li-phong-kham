@@ -1,0 +1,63 @@
+<div class="modal-header">
+    <div class="modal-title">
+        <h4 translate>Chi tiết</h4>
+    </div>
+</div>
+
+<div class="modal-body">
+    <div class="form-group row">
+        <h4 translate>Nhà cung cấp</h4>
+        <div class="row mt-3 nha-cung-cap">
+            <div class="col-md-6">
+                <p>Tên nhà cung cấp: {{nhapKhoThuoc.nhaCungCap?.fullname}}</p>
+                <p>Email: {{nhapKhoThuoc.nhaCungCap?.email}}</p>
+            </div>
+            <div class="col-md-6">
+                <p>Số điện thoại: {{nhapKhoThuoc.nhaCungCap?.phone}}</p>
+                <p>Địa chỉ: {{nhapKhoThuoc.nhaCungCap?.address}}</p>
+            </div>
+        </div>
+    </div>
+    <h4 translate>Hạng mục</h4>
+    <div class="table-responsive-xl mt-3">
+        <table class="table table-hover table-fixed">
+            <thead>
+                <tr class="table-primary">
+                    <th scope="col">STT</th>
+                    <th scope="col">Sản phẩm</th>
+                    <th scope="col" style="width: 100px; min-width: 100px;">Đơn vị</th>
+                    <th scope="col" style="width: 120px; min-width: 85px;">Số lượng</th>
+                    <th scope="col" style="width: 120px; min-width: 140px;">Ngày hết hạn</th>
+                    <th scope="col" style="width: 120px; min-width: 150px;">Giá nhập</th>
+                    <th scope="col" style="width: 120px; min-width: 150px;">Tổng nhập</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let thuoc of chiTietThuocList; let i=index">
+                    <td style="width: 30px;" class="align-middle">{{i+1}}</td>
+                    <td class="align-middle">{{thuoc.thuoc?.tenThuoc}}</td>
+                    <td class="align-middle">
+                        <label class="form-label me-0 mb-0" translate>{{thuoc.thuoc?.donVi}}</label>
+                    </td>
+                    <td class="align-middle">
+                        <div class="">{{thuoc.soLuong}}</div>
+                    </td>
+                    <td class="align-middle">
+                        <div class="">{{thuoc.ngayHetHan | date: 'dd/MM/YYYY'}}</div>
+                    </td>
+                    <td class="align-middle">
+                        <div class="">{{thuoc.giaNhap | number:'1.0':'en-US'}}</div>
+                    </td>
+                    <td class="align-middle">
+                        <label class="form-label me-0 mb-0" translate>{{thuoc.tongNhap | number:'1.0':'en-US'}}</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="8">
+                        <div class="text-right"><strong>Tổng cộng: <label class="form-label me-0 mb-0" translate>{{nhapKhoThuoc.tongTien | number:'1.0':'en-US'}}</label></strong></div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -1,0 +1,59 @@
+.badge{
+    font-size: 11px;
+    padding: 6px;
+    border-radius: 3px;
+}
+
+.bg-confirmed{
+    background-color: #5470C6;
+}
+
+.bg-info{
+    background-color: #17a2b8 !important;
+}
+
+a{
+    text-decoration: none;
+    cursor: pointer;
+    font-size: 18px;
+}
+
+.link-info{
+    color: #17a2b8 !important;
+}
+
+.action.btn{
+    padding: 0 !important;
+    margin: 4px 8px;
+}
+
+.action.btn:focus{
+    box-shadow: none !important;
+}
+
+.form-select{
+    cursor: pointer;
+    border: none;
+    width: auto;
+}
+
+.input-group .form-control{
+    border: none;
+    padding: 6px 12px 6px 0px;
+}
+
+.search-box{
+    border: 1px dashed #ADB5BD;
+    border-radius: 2px;
+    width: 33%;
+
+    select option{
+        border-radius: 2px;
+    }
+}
+
+@media (max-width: 991.98px) {
+    .search-box{
+        width: 100%;
+    }
+}

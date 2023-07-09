@@ -1,0 +1,16 @@
+<div id="user-profile" *ngIf="!authService.currentUser">
+    <div class="notification-icon btn btn-primary">
+        <fa-icon [icon]="faSpinner" [spin]="true" class="text-white"></fa-icon>
+    </div>
+</div>
+
+<div ngbDropdown id="user-profile" display="dynamic" placement="bottom-end" *ngIf="authService.currentUser">
+    <a class="btn dropdown-toggle" tabindex="0" ngbDropdownToggle role="button">
+        <fa-icon [icon]="faUser"></fa-icon>
+    </a>
+    <div ngbDropdownMenu class="dropdown-menu">
+        <a ngbDropdownItem href="#" (click)="$event.preventDefault()" disabled>{{authService.currentUser.fullname}}</a>
+        <a ngbDropdownItem routerLink="/auth/private/change-password"><fa-icon [icon]="faLock" class="me-2"></fa-icon>{{'Đổi mật khẩu' | translate}}</a>
+        <a ngbDropdownItem routerLink="/auth/logout"><fa-icon [icon]="faSignOut" class="me-2"></fa-icon>{{'Đăng xuất' | translate}}</a>
+    </div>
+</div>

@@ -1,0 +1,45 @@
+<div class="w-100 h-lg-100 row m-0">
+    <div class="header">
+        <button class="arrow btn-lg btn link-primary" (click)="goBack()">
+            <fa-icon [icon]="faArrowLeft" style="margin-right: 10px;"></fa-icon>
+            Trang chủ
+        </button>
+    </div>
+    <div class="col-lg-6 d-none d-lg-block illustration">
+        <p class="title mt-4">Đăng ký</p>
+        <p class="text-muted description">
+            Lưu ý: bạn cần mã bệnh nhân được cung cấp khi đến khám để có thể tạo tài khoản.
+        </p>
+        <div class="d-flex justify-content-center">
+            <img src="../../../../../assets/Register.png">
+        </div>
+    </div>
+    <div class="col-lg-6 d-block">
+        <div class="d-flex justify-content-center align-items-center h-100 mt-5 mt-lg-0">
+            <div class="card float-center p-3 px-3 px-md-5 mx-2 mx-md-4 h-100 w-100">
+                <img src="../../../../../assets/login-logo.png" width="117px" height="100px" style="margin:20px auto 0px auto" />
+                <div class="card-body">
+                    <form [formGroup]="verifyForm" (ngSubmit)="onSubmit()" class="g-3 mt-4" novalidate>
+                        <p class="text-center mb-4" style="font-size: 16px; letter-spacing: 0.5px;">Vui lòng nhập mã bệnh nhân để tiếp tục</p>
+                        <div class="form-group mb-3">
+                            <div class="input-group">
+                                <input type="text" name="referenceId" formControlName="referenceId" class="form-control" required placeholder="{{'Mã bệnh nhân' | translate}}">
+                            </div>
+                            <control-error-message [control]="verifyForm.controls['referenceId']" *ngIf="verifyForm.controls['referenceId'].touched"></control-error-message>
+                        </div>
+                        <div class="col-12">
+                          <make-form-touched [form]="verifyForm">
+                            <button class="mb-3 btn btn-lg w-100 btn-save" type="submit" translate [disabled]="verifyForm.invalid" style="background: #03ACF2; color: white;">Tiếp tục</button>
+                          </make-form-touched>
+                        </div>
+                    </form>
+                    
+                    <div class="d-flex mt-2" *ngIf="appState.config.enableTranslate">
+                        <button class="btn btn-light" (click)="selectLang('en')">English</button>
+                        <button class="btn btn-light mx-2" (click)="selectLang('vi')">Tiếng Việt</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,54 @@
+<div class="modal-header">
+    <div class="modal-title">
+        <h4 translate>Chi tiết</h4>
+    </div>
+</div>
+
+<div class="modal-body">
+    <div class="form-group row">
+        <h4 translate>Thông tin</h4>
+        <div class="row mt-3 nha-cung-cap">
+            <p>Mã bệnh nhân: <strong>{{khachHang.referenceId}}</strong></p>
+            <div class="col-md-6">
+                <p>Tên bệnh nhân: {{khachHang.fullname}}</p>
+                <p>Ngày sinh: {{khachHang.birthday | date: 'dd/MM/YYYY'}}</p>
+                <p>Giới tính: {{khachHang.gender}}</p>
+            </div>
+            <div class="col-md-6">
+                <p>Email: {{khachHang.email}}</p>
+                <p>Số điện thoại: {{khachHang.phone}}</p>
+                <p>Địa chỉ: {{khachHang.address}}</p>
+            </div>
+            <p>Lý do khám: {{donThuoc.lichKham.lyDo}}</p>
+            <p>Chẩn đoán: {{donThuoc.lichKham.chanDoan}}</p>
+        </div>
+    </div>
+    <h4 translate>Đơn thuốc</h4>
+    <div class="table-responsive-xl mt-3">
+        <table class="table table-hover table-fixed">
+            <thead>
+                <tr class="table-primary">
+                    <th scope="col">STT</th>
+                    <th scope="col">Tên thuốc</th>
+                    <th scope="col" style="width: 100px; min-width: 100px;">Đơn vị tính</th>
+                    <th scope="col" style="width: 120px; min-width: 85px;">Số lượng</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let thuoc of chiTietDonThuocList; let i=index">
+                    <td style="width: 30px;" class="align-middle">{{i+1}}</td>
+                    <td class="align-middle">
+                        <h5 style="font-size: 16px;">{{thuoc.thuoc?.tenThuoc}}</h5>
+                        <p><em>- {{thuoc.cachDung}}</em></p>
+                    </td>
+                    <td class="align-middle">
+                        <label class="form-label me-0 mb-0" translate>{{thuoc.thuoc?.donVi}}</label>
+                    </td>
+                    <td class="align-middle">
+                        <div class="">{{thuoc.soLuong}}</div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

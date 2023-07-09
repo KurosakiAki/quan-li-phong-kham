@@ -1,0 +1,27 @@
+<form novalidate [formGroup]="chuyenKhoaFormModal">
+    <div class="modal-header">
+        <div class="modal-title">
+            <h4 translate *ngIf="isAddNew">Thêm chuyên khoa</h4>
+            <h4 translate *ngIf="!isAddNew">Sửa chuyên khoa</h4>
+        </div>
+    </div>
+
+    <div class="modal-body">
+        <div class="form-group row">
+            <label class="required form-label" translate>Tên
+                chuyên khoa</label>
+            <div class="">
+                <input type="text" name="tenChuyenKhoa" class="form-control" formControlName="tenChuyenKhoa">
+                <control-error-message [control]="chuyenKhoaFormModal.controls['tenChuyenKhoa']" *ngIf="chuyenKhoaFormModal.controls['tenChuyenKhoa'].touched"></control-error-message>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-footer">
+        <button class="btn btn btn-secondary" type="submit" (click)="cancel()" translate>Đóng</button>
+        <button class="btn btn-primary" type="submit" (click)="onSubmit()" translate>
+            <fa-icon [icon]="faSave"></fa-icon>
+            Lưu
+        </button>
+    </div>
+</form>

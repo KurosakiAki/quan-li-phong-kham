@@ -1,0 +1,18 @@
+#modal-alert {
+    .modal-header {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        padding: 1rem;
+        border-bottom: 1px solid #dee2e6;
+    }
+
+    .alert {
+        margin-bottom: 0;
+    }
+
+    .modal-title {
+        font-weight: 400;
+        text-align: center;
+    }
+}

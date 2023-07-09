@@ -1,0 +1,51 @@
+import { Body, Controller, Delete, Get, Param, Post, Put, Req } from "@nestjs/common";
+import { ApiBearerAuth, ApiBody, ApiOperation, ApiResponse, ApiTags } from "@nestjs/swagger";
+import { Auth } from "../auth/auth.decorator";
+import { Create<%= camelName %>Dto, Update<%= camelName %>Dto } from "./<%= name %>.dto";
+import { <%= camelName %>Service } from "./<%= name %>.service";
+
+@ApiBearerAuth()
+@ApiTags('api/<%= name %>')
+@Controller('api/<%= name %>')
+export class <%= camelName %>Controller {
+  constructor(private service: <%= camelName %>Service) { }
+
+  @ApiOperation({ summary: 'Lấy danh sách <%= name %>' })
+  @Get()
+  @Auth()
+  async list(@Req() req) {
+    return await this.service.list();
+  }
+
+  @ApiOperation({ summary: 'Lấy thông tin chi tiết 1 <%= name %> theo ID' })
+  @Get(':id')
+  @Auth()
+  async get(@Param() params) {
+    return await this.service.get(params.id);
+  }
+
+  @ApiOperation({ summary: 'Tạo mới <%= name %>' })
+  @ApiResponse({ status: 201, description: 'Dữ liệu <%= name %> vừa tạo.' })
+  @Post()
+  @Auth()
+  async create(@Body() data: Create<%= camelName %>Dto, @Req() req) {
+    return await this.service.create(data, req.user.id);
+  }
+
+  @ApiOperation({ summary: 'Sửa thông tin <%= name %>' })
+  @ApiResponse({ status: 200, description: 'Dữ liệu <%= name %> vừa sửa.' })
+  @ApiBody({ type: Update<%= camelName %>Dto })
+  @Put(':id')
+  @Auth()
+  async update(@Param() params, @Body() data: Update<%= camelName %>Dto, @Req() req) {
+    return await this.service.update(params.id, data, req.user.id);
+  }
+
+  @ApiOperation({ summary: 'Xóa <%= name %> theo ID' })
+  @Delete(':id')
+  @Auth()
+  async deleteUser(@Param() params, @Req() req) {
+    return await this.service.remove(params.id, req.user.id);
+  }
+
+}

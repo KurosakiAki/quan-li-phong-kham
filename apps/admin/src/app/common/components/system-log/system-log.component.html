@@ -1,0 +1,9 @@
+<div class="card" style="font-size: 95%;">
+    <div class="card-body">
+        <div *ngFor="let log of logs">
+            <div><span  class="fw-bold">{{log.updatedUserName}}</span> <small>- {{log.createdAt | date:"d/M/yy, h:mm a"}}</small></div>
+            <ng-template *ngIf="log.type !== logType.CREATE" [ngTemplateOutlet]="contentTemplate" [ngTemplateOutletContext]="{log: log}"></ng-template>
+            <ng-template *ngIf="log.type === logType.CREATE" [ngTemplateOutlet]="newContentTemplate" [ngTemplateOutletContext]="{log: log}"></ng-template>
+        </div>
+    </div>
+</div>

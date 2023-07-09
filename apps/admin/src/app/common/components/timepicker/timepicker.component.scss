@@ -1,0 +1,46 @@
+.time-select {
+    list-style: none;
+    overflow-y: auto;
+    padding: 0;
+    margin: 0;
+    height: 220px;
+    li {
+        cursor: pointer;
+        padding: 5px;
+        &:hover {
+            background-color: #f0f0f0;
+        }
+    }
+}
+
+:host {
+    ::ng-deep .popover-body {
+        padding: 0;
+    }
+}
+
+:host {
+    ::ng-deep .popover-arrow {
+        display: none;
+        visibility: hidden;
+    }
+}
+
+.form-control:focus{
+    box-shadow: none;
+    border-color: #03ACF2;
+}
+
+.form-control[readonly]{
+    background-color: #ffff;
+}
+
+.form-control:disabled.form-control[readonly]{
+    background-color: #e9ecef;
+}
+
+:host {
+    ::ng-deep .popover {
+        transform: translate3d(-126.667px,);
+    }
+}

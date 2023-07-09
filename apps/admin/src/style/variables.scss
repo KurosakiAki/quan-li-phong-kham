@@ -1,0 +1,27 @@
+// Override default variables before the import\
+$enable-grid-classes:       true;
+
+$primary:                   #0072ce;
+$danger:                    #ff3d00;
+$warning:                   #ffc527;
+$secondary:                 #707070;
+$success:                   #21b584;
+$info:                      #0084f1;
+$blue:                      #03ACF2;
+
+$body-bg:                   #FFFFFF;
+$input-bg:                  #FFFFFF;
+$border-radius:               .1rem;
+
+$nav-tabs-border-width:       2px;
+$nav-tabs-link-active-color:  rgba(0,0,0,0.87);
+
+$font-size-base:              0.85rem;
+$font-weight-normal:          400;
+$font-family-base:            'Be Vietnam', sans-serif;
+$headings-font-weight:        600;
+
+$card-cap-padding-y:          0.75rem;
+$card-cap-padding-x:          1.25rem;
+
+$header-height:               64px;

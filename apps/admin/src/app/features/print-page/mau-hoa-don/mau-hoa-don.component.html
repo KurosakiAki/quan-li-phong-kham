@@ -1,0 +1,88 @@
+<div class="container">
+    <div class="inv-title">
+        <h1>HÓA ĐƠN</h1>
+    </div>
+    <p class="sub-title">Mã số: {{hoaDon.maHoaDon}}</p>
+    <div class="inv-header">
+        <table class="info">
+            <tbody>
+                <tr>
+                    <td class="info-title">Họ tên</td>
+                    <td class="colon">:</td>
+                    <td><strong>{{hoaDon.tenBenhNhan | uppercase }}</strong></td>
+                </tr>
+                <tr>
+                    <td class="info-title">Tuổi - Giới tính</td>
+                    <td class="colon">:</td>
+                    <td>{{hoaDon.tuoi}} - {{hoaDon.gioiTinh}}</td>
+                </tr>
+                <tr>
+                    <td class="info-title">Điện thoại</td>
+                    <td class="colon">:</td>
+                    <td>{{hoaDon.soDienThoai}}</td>
+                </tr>
+                <tr>
+                    <td class="info-title">Địa chỉ</td>
+                    <td class="colon">:</td>
+                    <td>{{hoaDon.diaChi}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="inv-body">
+        <table *ngIf="chiTietHoaDonThuoc.length != 0">
+            <thead>
+                <th>STT</th>
+                <th>Tên thuốc</th>
+                <th>Đơn vị tính</th>
+                <th>Số lượng</th>
+                <th>Đơn giá</th>
+                <th>Thành tiền</th>
+            </thead>
+            <tbody *ngFor="let thuoc of chiTietHoaDonThuoc; let i=index">
+                <tr>
+                    <td style="width: 30px;">{{i+1}}</td>
+                    <td class="medicine-name">
+                        {{thuoc.tenThuoc}}
+                    </td>
+                    <td style="width: 150px;">{{thuoc.donViThuoc}}</td>
+                    <td style="width: 120px;">{{thuoc.soLuongThuoc}}</td>
+                    <td style="width: 120px;" [innerHTML]="thuoc.donGiaThuoc | number:'1.0':'en-US' ">{{thuoc.donGia}}</td>
+                    <td style="width: 150px;" [innerHTML]="thuoc.thanhTienThuoc | number:'1.0':'en-US'">{{thuoc.thanhTien}}</td>
+                </tr>
+            </tbody>
+        </table>
+        <table *ngIf="chiTietHoaDonDichVu.length != 0" class="mt-3">
+            <thead>
+                <th>STT</th>
+                <th>Tên dịch vụ</th>
+                <th>Đơn vị tính</th>
+                <th>Số lượng</th>
+                <th>Đơn giá</th>
+                <th>Thành tiền</th>
+            </thead>
+            <tbody *ngFor="let dichVu of chiTietHoaDonDichVu; let i=index">
+                <tr>
+                    <td style="width: 30px;">{{i+1}}</td>
+                    <td class="medicine-name">
+                        {{dichVu.tenDichVu}}
+                    </td>
+                    <td style="width: 150px;">{{dichVu.donViDichVu}}</td>
+                    <td style="width: 120px;">{{dichVu.soLuongDichVu}}</td>
+                    <td style="width: 120px;" [innerHTML]="dichVu.donGiaDichVu | number:'1.0':'en-US'"></td>
+                    <td style="width: 150px;" [innerHTML]="dichVu.thanhTienDichVu| number:'1.0':'en-US'"></td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="text-right mt-3"><strong>Tổng cộng: <label class="form-label me-0 mb-0" translate [innerHTML]="hoaDon.tongTien | number:'1.0':'en-US'"></label></strong></div>
+    </div>
+    <div class="inv-footer">
+        <div class="d-flex flex-column me-5">
+        </div>
+        <div class="d-flex flex-column ms-5">
+            <p class="d-flex align-self-center" style="font-size: 14px;">Ngày {{hoaDon.createdAt | date: 'dd/MM/YYYY'}}</p>
+            <p class="d-flex align-self-center" style="font-size: 14px; margin-bottom: 100px;"><strong>Người lập</strong></p>
+            <p class="d-flex align-self-center" style="font-size: 14px; margin-bottom: 50px;"><strong>{{hoaDon.tenUser}}</strong></p>
+        </div>
+    </div>
+</div>

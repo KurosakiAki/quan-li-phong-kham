@@ -1,0 +1,28 @@
+<m-page-container>
+    <div class="d-flex justify-content-between">
+        <h4 translate class="mb-3">Thông tin cá nhân</h4>
+        <button class="action btn link-primary mb-3" [ngbTooltip]="'Sửa thông tin cá nhân' | translate" (click)="openFormModal()">
+            <fa-icon [icon]="faPencil" class="icon-btn"></fa-icon>
+        </button>
+    </div>
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <div class="row benh-nhan">
+                    <div class="col-md-6">
+                        <p>Mã số: <strong>{{profile.referenceId}}</strong></p>
+                        <p>Họ và tên: {{profile.fullname}}</p>
+                        <p>Ngày sinh: {{profile.birthday | date: 'dd/MM/YYYY'}}</p>
+                        <p>Giới tính: {{profile.gender}}</p>
+                    </div>
+                    <div class="col-md-6">
+                        <p>Tên đăng nhập: {{profile.username}}</p>
+                        <p>Email: {{profile.email}}</p>
+                        <p>Số điện thoại: {{profile.phone}}</p>
+                        <p>Địa chỉ: {{profile.address}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</m-page-container>

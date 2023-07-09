@@ -1,0 +1,18 @@
+import { ApiProperty } from "@nestjs/swagger";
+import { IsNotEmpty } from "class-validator";
+
+export class Update<%= camelName %>Dto {
+  @ApiProperty({ type: 'string', example: 'Toroidal' })
+  @IsNotEmpty()
+  ten<%= camelName %>: string;
+
+  @ApiProperty({ type: 'string', example: '234234' })
+  @IsNotEmpty()
+  ma<%= camelName %>: string;
+
+  updatedUser: number;
+}
+
+export class Create<%= camelName %>Dto extends Update<%= camelName %>Dto {
+
+}

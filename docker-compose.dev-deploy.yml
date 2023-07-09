@@ -1,0 +1,44 @@
+version: '3.7'
+
+services:
+  api:
+    build:
+      context: .
+      dockerfile: ./Dockerfile-api
+    container_name: qlpk_api
+    depends_on:
+      - redis
+      - mysql
+    command: node main.js
+    ports:
+      - 127.0.0.1:4111:4111 # Bind containers locally so they are not exposed outside your machine
+    networks:
+      - qlpk_network
+
+  mysql:
+    image: mysql:5.7
+    container_name: qlpk_mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: qlpk
+      MYSQL_USER: qlpk
+      MYSQL_PASSWORD: mrhdev
+      MYSQL_ROOT_PASSWORD: mrhdev
+      SERVICE_TAGS: dev
+      SERVICE_NAME: mysql
+    ports:
+      - 4406:3306
+    networks:
+      - qlpk_network
+    volumes:
+      - ~/qlpk/mysql-volumn:/var/lib/mysql
+
+  redis:
+    container_name: qlpk_redis
+    image: redis:5
+    networks:
+      - qlpk_network
+    restart: always
+
+networks:
+  qlpk_network:

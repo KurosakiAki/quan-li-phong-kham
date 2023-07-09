@@ -1,0 +1,161 @@
+<m-page-header>
+    <m-page-title>
+        <span translate>Sửa tài khoản</span>
+    </m-page-title>
+</m-page-header>
+
+<m-page-container>
+    <div class="row">
+        <div class="col-9" style="padding: 0px 12px 0px 15px">
+            <form [formGroup]="userForm" novalidate #form="ngForm">
+                <h4 translate class="mb-3">Thông tin</h4>
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="row col-sm-6">
+                                <div class="form-group row">
+                                    <label class="text-sm-right form-label col-form-label col-sm-4" translate>Mã số</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" class="form-control" formControlName="referenceId" readonly>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row col-sm-6">
+                                <div class="form-group row">
+                                    <label class="required text-sm-right form-label col-form-label col-sm-4" translate>Tên
+                                        đăng nhập</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" name="username" class="form-control" formControlName="username" autocomplete="new-password">
+                                        <control-error-message [control]="userForm.controls['username']" *ngIf="userForm.controls['username'].touched"></control-error-message>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="row col-sm-6">
+                                <div class="form-group row">
+                                    <label class="required text-sm-right form-label col-form-label col-sm-4" translate>Họ
+                                        và tên</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" name="fullname" class="form-control" formControlName="fullname">
+                                        <control-error-message [control]="userForm.controls['fullname']" *ngIf="userForm.controls['fullname'].touched"></control-error-message>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row col-sm-6">
+                                <div class="form-group row">
+                                    <label class="text-sm-right form-label col-form-label col-sm-4 required" translate>Ngày sinh</label>
+                                    <div class="col-sm-8">
+                                        <input class="form-control" (click)="d.toggle()" placeholder="dd/mm/yyyy" name="birthday"
+                                        formControlName="birthday" ngbDatepicker #d="ngbDatepicker">
+                                        <control-error-message [control]="userForm.controls['birthday']" *ngIf="userForm.controls['birthday'].touched"></control-error-message>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="row col-sm-6">
+                                <div class="form-group row">
+                                    <label class="text-sm-right form-label col-form-label col-sm-4 required" translate>Giới tính</label>
+                                    <div class="col-sm-8">
+                                        <ng-select formControlName="gender" name="gender" class="required"
+                                            [multiple]="false" [closeOnSelect]="true" [searchable]="false" [items]="genderSelect"
+                                            [placeholder]="'-- Chọn giới tính --' | translate">
+                                        </ng-select>
+                                        <control-error-message [control]="userForm.controls['gender']" *ngIf="userForm.controls['gender'].touched"></control-error-message>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row col-sm-6">
+                                <div class="form-group row">
+                                    <label class="text-sm-right form-label col-form-label col-sm-4" translate>Địa chỉ</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" name="address" class="form-control" formControlName="address">
+                                        <control-error-message [control]="userForm.controls['address']" *ngIf="userForm.controls['address'].touched"></control-error-message>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="row col-sm-6">
+                                <div class="form-group row">
+                                    <label class="text-sm-right form-label col-form-label col-sm-4 required" translate>Điện thoại</label>
+                                    <div class="col-sm-8">
+                                        <input class="form-control" autocomplete="off"
+                                            oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');" type="text"
+                                            name="phone" formControlName="phone">
+                                        <control-error-message [control]="userForm.controls['phone']" *ngIf="userForm.controls['phone'].touched"></control-error-message>
+                                        <div class="text-danger" *ngIf="userForm.valid && form.submitted && validatePhone()" translate>
+                                            Không phải là số điện thoại Việt Nam
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row col-sm-6">
+                                <div class="form-group row">
+                                    <label class="required text-sm-right form-label col-form-label col-sm-4">Email</label>
+                                    <div class="col-sm-8">
+                                        <input type="email" name="email" class="form-control" formControlName="email">
+                                        <control-error-message [control]="userForm.controls['email']" *ngIf="userForm.controls['email'].touched"></control-error-message>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="row col-sm-6">
+                                <div class="form-group row">
+                                    <label class="text-sm-right form-label col-form-label col-sm-4 required" translate>Chuyên khoa</label>
+                                    <div class="col-sm-8">
+                                        <ng-select formControlName="specialistId" name="specialistId" bindValue="id" bindLabel="tenChuyenKhoa"
+                                            [multiple]="false" [closeOnSelect]="true" [searchable]="false" [items]="chuyenKhoaList" class="required"
+                                            [placeholder]="'-- Chọn chuyên khoa --' | translate">
+                                        </ng-select>
+                                        <control-error-message [control]="userForm.controls['specialistId']" *ngIf="userForm.controls['specialistId'].touched"></control-error-message>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row col-sm-6">
+                                <div class="form-group row">
+                                    <label class="text-sm-right form-label col-form-label col-sm-4 required" translate>Vai trò</label>
+                                    <div class="col-sm-8">
+                                        <ng-select formControlName="userRoleCode" name="userRoleCode" bindValue="code" bindLabel="name"
+                                            [multiple]="false" [closeOnSelect]="true" [searchable]="false" [items]="userRoleList" class="required"
+                                            [placeholder]="'-- Chọn vai trò --' | translate">
+                                        </ng-select>
+                                        <control-error-message [control]="userForm.controls['userRoleCode']" *ngIf="userForm.controls['userRoleCode'].touched"></control-error-message>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-2 text-right">
+                    <button class="btn btn-secondary me-2" type="button" (click)="goBack()" translate>
+                        Quay lại
+                      </button>
+                      <make-form-touched [form]="userForm">
+                        <button class="btn btn-primary" type="submit" (click)="onSubmit()" translate [disabled]="userForm.invalid">
+                            <fa-icon [icon]="faSave"></fa-icon>
+                            Lưu
+                        </button>
+                      </make-form-touched>
+                </div>
+            </form>
+        </div>
+        <!-- <div class="col-3">
+            <h4 translate class="mb-3">Lịch sử</h4>
+            <system-log [objectType]="systemLogType" [objectId]="userId">
+                <ng-template system-log-new-content let-log="log">
+                    <span translate>Người dùng đã được tạo</span>
+                </ng-template>
+                <ng-template system-log-content let-log="log">
+                    <ul>
+                        <li *ngFor="let change of log.changeData">
+                            {{userService.columnsDescription[change.field]}}: {{change.oldValue}} -> {{change.newValue}}
+                        </li>
+                    </ul>
+                </ng-template>
+            </system-log>
+        </div> -->
+    </div>
+</m-page-container>

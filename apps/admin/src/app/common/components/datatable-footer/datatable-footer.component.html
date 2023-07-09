@@ -1,0 +1,46 @@
+<div class="w-100 d-flex justify-content-end align-items-center">
+    <div class="item-footer-table  me-4">
+        <label for="per-page" class="me-2"> Số hàng mỗi trang:</label>
+        <select id="per-page" class="select-footer-table border-0" (change)="onLimitChange($event)">
+            <option *ngFor="let option of [20,50,100,200]" [value]="option" [selected]="option === params.limit">
+                {{ option }}
+            </option>
+        </select>
+
+    </div>
+    <div class="item-footer-table me-4">
+        <span>{{params.page*params.limit-params.limit+1}}</span>-<span *ngIf="(params.page*params.limit) > totalRows">{{totalRows }}</span>
+        <span *ngIf="(params.page*params.limit) <= totalRows">{{params.page*params.limit}}</span>
+        of <span>{{totalRows}}</span>
+    </div>
+    <div class="item-footer-table mt-3 me-4">
+        <nav aria-label="Page navigation example">
+            <ul class="pagination">
+                <li class="page-item">
+                    <button class="btn btn-outline-secondary border-0" (click)="startPage()"
+                        [disabled]="params.page===1 ? true : false">
+                        <fa-icon [icon]="faAnglesLeft"></fa-icon>
+                    </button>
+                </li>
+                <li class="page-item">
+                    <button class="btn btn-outline-secondary border-0" (click)="previousPage()"
+                        [disabled]="params.page===1 ? true : false">
+                        <fa-icon [icon]="faAngleLeft"></fa-icon>
+                    </button>
+                </li>
+                <li class="page-item">
+                    <button class="btn btn-outline-secondary border-0" (click)="nextPage()"
+                        [disabled]="params.page===lastPage ? true : false">
+                        <fa-icon [icon]="faAngleRight"></fa-icon>
+                    </button>
+                </li>
+                <li class="page-item">
+                    <button class="btn btn-outline-secondary border-0" (click)="endPage()"
+                        [disabled]="params.page===lastPage ? true : false">
+                        <fa-icon [icon]="faAnglesRight"></fa-icon>
+                    </button>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</div>

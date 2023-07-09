@@ -1,0 +1,22 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "cli": "nx",
+  "$id": "api-simple-feature",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Feature name",
+      "$default": {
+        "$source": "argv",
+        "index": 0
+      }
+    },
+    "isSoftDelete": {
+      "type": "boolean",
+      "description": "Is entity uses soft delete",
+      "default": false
+    }
+  },
+  "required": ["name"]
+}

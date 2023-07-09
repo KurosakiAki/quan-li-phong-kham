@@ -1,0 +1,12 @@
+.table > :not(:first-child) {
+    border-top: 1.5px solid currentColor;
+}
+
+.action.btn{
+    padding: 0 !important;
+    margin: 0px;
+}
+
+.action.btn:focus{
+    box-shadow: none !important;
+}

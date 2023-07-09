@@ -1,0 +1,138 @@
+<div class="modal-header">
+    <div class="modal-title">
+        <h4 translate>Thêm tài khoản</h4>
+    </div>
+</div>
+<form novalidate [formGroup]="userForm" #form="ngForm">
+    <div class="modal-body">
+        <div class="row">
+            <h4 translate>Thông tin</h4>
+        </div>
+        <div class="form-group row" *ngIf="this.modalParams.userRoleCode === 'PATIENT'">
+            <div class="mt-2">
+                <ng-select [(ngModel)]="selectedOption" (ngModelChange)="onSelectChange($event)"
+                    [multiple]="false" [closeOnSelect]="true" [searchable]="true" [ngModelOptions]="{standalone: true}"
+                    [placeholder]="'Tìm kiếm theo mã số, tên hoặc số điện thoại' | translate">
+                    <ng-option *ngFor="let party of partiesList" [value]="party">
+                        {{party.referenceId}} - {{party.fullname}} - {{party.phone}}
+                    </ng-option>
+                </ng-select>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-md-6">
+                <label class="required form-label col-form-label" translate>Tên
+                    đăng nhập</label>
+                <div class="">
+                    <input type="text" name="username" class="form-control" formControlName="username" autocomplete="new-password">
+                    <control-error-message [control]="userForm.controls['username']" *ngIf="userForm.controls['username'].touched"></control-error-message>
+                </div>
+            </div>
+            <div class="form-group col-md-6">
+                <label class="required form-label col-form-label" translate>Họ
+                    và tên</label>
+                <div class="">
+                    <input type="text" name="fullname" class="form-control" formControlName="fullname">
+                    <control-error-message [control]="userForm.controls['fullname']" *ngIf="userForm.controls['fullname'].touched"></control-error-message>
+                </div>
+            </div>    
+        </div>
+        <div class="row">
+            <div class="form-group col-md-6">
+                <label class="form-label col-form-label required" translate>Ngày sinh</label>
+                <div class="">
+                    <input class="form-control" (click)="d.toggle()" placeholder="dd/mm/yyyy" name="birthday"
+                    formControlName="birthday" ngbDatepicker #d="ngbDatepicker">
+                    <control-error-message [control]="userForm.controls['birthday']" *ngIf="userForm.controls['birthday'].touched"></control-error-message>
+                </div>
+            </div>
+            <div class="form-group col-md-6">
+                <label class="form-label col-form-label required" translate>Giới tính</label>
+                <div class="">
+                    <ng-select formControlName="gender" name="gender" class="required"
+                        [multiple]="false" [closeOnSelect]="true" [searchable]="false" [items]="genderSelect"
+                        [placeholder]="'-- Chọn giới tính --' | translate">
+                    </ng-select>
+                    <control-error-message [control]="userForm.controls['gender']" *ngIf="userForm.controls['gender'].touched"></control-error-message>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-md-6">
+                <label class="form-label col-form-label required" translate>Điện thoại</label>
+                <div class=" ">
+                    <input class="form-control" autocomplete="off"
+                        oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');" type="text"
+                        name="phone" formControlName="phone">
+                    <control-error-message [control]="userForm.controls['phone']" *ngIf="userForm.controls['phone'].touched"></control-error-message>
+                    <div class="text-danger" *ngIf="userForm.valid && form.submitted && validatePhone()" translate>
+                        Không phải là số điện thoại Việt Nam
+                    </div>
+                </div>
+            </div>
+            <div class="form-group col-md-6">
+                <label class="form-label col-form-label required">Email</label>
+                <div class=" ">
+                    <input type="email" name="email" class="form-control" formControlName="email">
+                    <control-error-message [control]="userForm.controls['email']" *ngIf="userForm.controls['email'].touched"></control-error-message>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-md-6">
+                <label class="form-label col-form-label" translate>Địa chỉ</label>
+                <div class="">
+                    <input type="text" name="address" class="form-control" formControlName="address">
+                    <control-error-message [control]="userForm.controls['address']" *ngIf="userForm.controls['address'].touched"></control-error-message>
+                </div>
+            </div>
+            <div class="form-group col-md-6">
+                <label class="form-label col-form-label required" translate>Chuyên khoa</label>
+                <div class="">
+                    <ng-select formControlName="specialistId" name="specialistId" bindValue="id" bindLabel="tenChuyenKhoa"
+                        [multiple]="false" [closeOnSelect]="true" [searchable]="false" [items]="chuyenKhoaList" class="required"
+                        [placeholder]="'-- Chọn chuyên khoa --' | translate">
+                    </ng-select>
+                    <control-error-message [control]="userForm.controls['specialistId']" *ngIf="userForm.controls['specialistId'].touched"></control-error-message>
+                </div>
+            </div>
+        </div>
+        <ng-container>
+            <div class="row">
+                <div class=""></div>
+                <div class="">
+                    <h4 translate>Mật khẩu</h4>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="form-label col-form-label required" translate>Mật khẩu</label>
+                <div class=" ">
+                    <input name="password" type="password" required class="form-control" formControlName="password" autocomplete="new-password">
+                    <control-error-message [control]="userForm.controls['password']" *ngIf="userForm.controls['password'].touched"></control-error-message>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="  form-label col-form-label required" translate>Nhập lại mật
+                    khẩu</label>
+                <div class=" ">
+                    <input name="rePassword" type="password" required class="form-control" formControlName="rePassword" autocomplete="new-password">
+                    <control-error-message [control]="userForm.controls['rePassword']" *ngIf="userForm.controls['rePassword'].touched"></control-error-message>
+                    <div class="text-danger" *ngIf="form.submitted">
+                        <div *ngIf="!userForm.invalid && (userForm.value.password !== userForm.value.rePassword)" translate>
+                            Mật khẩu không khớp
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </ng-container> 
+    </div>
+      
+    <div class="modal-footer">
+        <button class="btn btn-primary" type="submit" (click)="goBack()" translate>Quay lại</button>
+        <button class="btn btn-success" type="submit" (click)="onSubmit()" translate>
+            <fa-icon [icon]="faSave"></fa-icon>
+            Lưu
+        </button>
+        <button class="btn btn-secondary" type="submit" (click)="cancel()" translate>Đóng</button>
+    </div>
+</form> 

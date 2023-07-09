@@ -1,0 +1,51 @@
+<form novalidate [formGroup]="dichVuFormModal">
+    <div class="modal-header">
+        <div class="modal-title">
+            <h4 translate *ngIf="isAddNew">Thêm dịch vụ</h4>
+            <h4 translate *ngIf="!isAddNew">Sửa dịch vụ</h4>
+        </div>
+    </div>
+
+    <div class="modal-body">
+        <div class="form-group row">
+            <label class="required form-label" translate>Tên
+                dịch vụ</label>
+            <div class="">
+                <input type="text" name="tenDichVu" class="form-control" formControlName="tenDichVu">
+                <control-error-message [control]="dichVuFormModal.controls['tenDichVu']" *ngIf="dichVuFormModal.controls['tenDichVu'].touched"></control-error-message>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="form-label col-form-label required" translate>Loại</label>
+            <div class=" ">
+                <ng-select formControlName="loai" name="loai"
+                    [multiple]="false" [closeOnSelect]="true" [searchable]="false" [items]="typeList" class="required"
+                    [placeholder]="'-- Chọn trạng thái --' | translate">
+                </ng-select>
+                <control-error-message [control]="dichVuFormModal.controls['loai']" *ngIf="dichVuFormModal.controls['loai'].touched"></control-error-message>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="required form-label" translate>Đơn vị</label>
+            <div class="">
+                <input type="text" name="donVi" class="form-control" formControlName="donVi">
+                <control-error-message [control]="dichVuFormModal.controls['donVi']" *ngIf="dichVuFormModal.controls['donVi'].touched"></control-error-message>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="required form-label" translate>Đơn giá</label>
+            <div class="">
+                <input type="text" name="donGia" class="form-control" formControlName="donGia">
+                <control-error-message [control]="dichVuFormModal.controls['donGia']" *ngIf="dichVuFormModal.controls['donGia'].touched"></control-error-message>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-footer">
+        <button class="btn btn btn-secondary" type="submit" (click)="cancel()" translate>Đóng</button>
+        <button class="btn btn-primary" type="submit" (click)="onSubmit()" translate>
+            <fa-icon [icon]="faSave"></fa-icon>
+            Lưu
+        </button>
+    </div>
+</form>

@@ -1,0 +1,46 @@
+<div class="container">
+    <div class="inv-title">
+        <h1>PHIẾU NHẬP KHO</h1>
+    </div>
+    <p class="sub-title">Mã số: {{nhapKhoThuoc.maNhapKho}}</p>
+    <div class="inv-body">
+        <table>
+            <thead>
+                <th>STT</th>
+                <th>Tên thuốc</th>
+                <th>Đơn vị tính</th>
+                <th>Số lượng</th>
+                <th>Giá nhập</th>
+                <th>Tổng nhập</th>
+            </thead>
+            <tbody *ngFor="let thuoc of chiTietThuoc; let i=index">
+                <tr>
+                    <td style="width: 30px;">{{i+1}}</td>
+                    <td class="medicine-name">
+                        {{thuoc.tenThuoc}}
+                    </td>
+                    <td style="width: 150px;">{{thuoc.donVi}}</td>
+                    <td style="width: 120px;">{{thuoc.soLuong}}</td>
+                    <td style="width: 120px;" [innerHTML]="thuoc.giaNhap">{{thuoc.giaNhap}}</td>
+                    <td style="width: 150px;" [innerHTML]="thuoc.tongNhap | number:'1.0':'en-US'">{{thuoc.tongNhap}}</td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <td colspan="8">
+                    <div class="text-right"><strong>Tổng cộng: <label class="form-label me-0 mb-0" translate [innerHTML]="nhapKhoThuoc.tongTien | number:'1.0':'en-US'"></label></strong></div>
+                </td>
+            </tfoot>
+        </table>
+    </div>
+    <div class="inv-footer">
+        <div class="d-flex flex-column me-5">
+            <p style="font-size: 14px;">Nhà cung cấp</p>
+            <p style="font-size: 14px; text-align: justify;"><strong>{{nhapKhoThuoc.tenNhaCungCap}}</strong></p>
+        </div>
+        <div class="d-flex flex-column ms-5">
+            <p class="d-flex align-self-center" style="font-size: 14px;">Ngày {{nhapKhoThuoc.createdAt | date: 'dd/MM/YYYY'}}</p>
+            <p class="d-flex align-self-center" style="font-size: 14px; margin-bottom: 100px;"><strong>Người lập</strong></p>
+            <p class="d-flex align-self-center" style="font-size: 14px; margin-bottom: 50px;"><strong>{{nhapKhoThuoc.tenUser}}</strong></p>
+        </div>
+    </div>
+</div>

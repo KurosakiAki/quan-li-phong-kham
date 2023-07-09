@@ -1,0 +1,38 @@
+<form novalidate [formGroup]="khamBenhForm">
+    <div class="modal-header">
+        <div class="modal-title">
+            <h4 translate>Sửa phiếu khám bệnh</h4>
+        </div>
+    </div>
+
+    <div class="modal-body">
+        <div class="row">
+            <div class=""></div>
+            <div class="">
+                <h4 translate>Chọn loại khám</h4>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="form-label col-form-label required" translate>Loại khám</label>
+            <div class="">
+                <ng-select formControlName="dichVuId" name="dichVuId" bindValue="id" bindLabel="tenDichVu"
+                    [multiple]="false" [closeOnSelect]="true" [searchable]="false" [items]="dichVuList" class="required"
+                    [placeholder]="'-- Chọn dịch vụ --' | translate">
+                </ng-select>
+                <control-error-message [control]="khamBenhForm.controls['dichVuId']" *ngIf="khamBenhForm.controls['dichVuId'].touched"></control-error-message>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-footer">
+        <button class="btn btn btn-secondary" type="submit" (click)="cancel()" translate>Đóng</button>
+        <button class="btn btn-primary" type="submit" (click)="onSubmit()" translate>
+            <fa-icon [icon]="faSave"></fa-icon>
+            Lưu
+        </button>
+        <button class="btn btn-success" type="submit" (click)="onSubmit(true)" translate>
+            <fa-icon [icon]="faPrint"></fa-icon>
+            Lưu và In
+        </button>
+    </div>
+</form>

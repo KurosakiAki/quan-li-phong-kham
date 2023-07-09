@@ -1,0 +1,96 @@
+import { SystemLogObjectTypeEnum, SystemLogTypeEnum } from '@api-interfaces';
+import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { SystemLogService } from '../system-log/system-log.service';
+import { CreateNhanVienDto, UpdateNhanVienDto } from './nhan-vien.dto';
+import { NhanVien } from './nhan-vien.entity';
+
+@Injectable()
+export class NhanVienService {
+  constructor(
+    @InjectRepository(NhanVien) private respository: Repository<NhanVien>,
+    private systemLogService: SystemLogService
+  ) {}
+
+  /**
+   * Lấy thông tin nhan-vien theo ID
+   * @param id
+   */
+  async get(id: number) {
+    return await this.respository.findOne({ where: { id } });
+  }
+
+  async getByReferenceId(id: string) {
+    return await this.respository.findOne({ where: { referenceId: id } });
+  }
+
+  /**
+   * Lấy danh sách nhan-vien
+   */
+  async list() {
+    return await this.respository.find();
+  }
+
+  /**
+   * Thêm mới nhan-vien
+   * @param data
+   * @param updatedUserId
+   * @returns
+   */
+  async create(data: CreateNhanVienDto, updatedUserId: number, referenceId: string) {
+    const item = await this.respository.create({
+      ...data,
+      referenceId: referenceId,
+      updatedUser: updatedUserId,
+    });
+    await item.save();
+    this.systemLogService.logChange({
+      objectId: item.id,
+      objectType: SystemLogObjectTypeEnum.USER,
+      type: SystemLogTypeEnum.CREATE,
+      updatedUserId: updatedUserId,
+    });
+
+    return item;
+  }
+
+  /**
+   * Chỉnh sửa thông tin nhan-vien
+   * @param id Id nhan-vien
+   * @param updateData Dự liệu update
+   * @param updatedUserId Id của user update
+   */
+  async update(
+    id: number,
+    updateData: UpdateNhanVienDto,
+    updatedUserId: number
+  ) {
+    const beforeUpdateData = await this.get(id);
+    await this.respository.update(id, {
+      ...updateData,
+      updatedUser: updatedUserId,
+    });
+    const afterUpdateData = await this.get(id);
+
+    this.systemLogService.logChange({
+      before: beforeUpdateData,
+      after: afterUpdateData,
+      objectId: afterUpdateData.id,
+      objectType: SystemLogObjectTypeEnum.USER,
+      type: SystemLogTypeEnum.UPDATE,
+      updatedUserId: updatedUserId,
+    });
+
+    return afterUpdateData;
+  }
+
+  /**
+   * Xóa nhan-vien
+   * @param id Id nhan-vien
+   * @param deletedUserId Id của user thực hiện thao tác xóa
+   */
+  async deleteUser(id: number) {
+    return await this.respository.delete(id);
+  }
+}

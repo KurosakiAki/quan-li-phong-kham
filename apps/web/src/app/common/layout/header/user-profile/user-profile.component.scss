@@ -1,0 +1,33 @@
+@import "../../../../../style/variables.scss";
+#user-profile{
+  margin-right: 10px;
+  padding-top: 14px;
+  height: 100%;
+  &.show .btn {
+    border-bottom: 3px solid #fff;
+  }
+}
+
+.dropdown-toggle{
+  height: 100%;
+}
+
+.dropdown-item{
+  &:active{
+    background-color: $blue !important;
+  }
+  &:focus{
+    background-color: $blue !important;
+  }
+}
+
+.btn{
+  color: #000000DE;
+  border-bottom: 3px solid transparent;
+  &:hover {
+    border-bottom: 3px solid #fff;
+  }
+  &:focus{
+    box-shadow: none;
+  }
+}

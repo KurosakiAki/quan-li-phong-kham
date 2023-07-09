@@ -1,0 +1,101 @@
+import { SystemLogObjectTypeEnum, SystemLogTypeEnum } from "@api-interfaces";
+import { Injectable } from "@nestjs/common";
+import { InjectRepository } from "@nestjs/typeorm";
+import { Repository } from "typeorm";
+import { SystemLogService } from "../system-log/system-log.service";
+import { Create<%= camelName %>Dto, Update<%= camelName %>Dto } from "./<%= name %>.dto";
+import { <%= camelName %> } from "./<%= name %>.entity";
+
+@Injectable()
+export class <%= camelName %>Service {
+  constructor(
+    @InjectRepository(<%= camelName %>) private respository: Repository<<%= camelName %>>,
+    private systemLogService: SystemLogService
+
+  ) { }
+
+  /**
+   * Lấy thông tin <%= name %> theo ID
+   * @param id
+   */
+  async get(id: number) {
+    return await this.respository.findOne({where: {id}});
+  }
+
+  /**
+   * Lấy danh sách <%= name %>
+   */
+  async list() {
+    return await this.respository.find();
+  }
+
+  /**
+   * Thêm mới <%= name %>
+   * @param data
+   * @param updatedUserId
+   * @returns
+   */
+  async create(data: Create<%= camelName %>Dto, updatedUserId: number) {
+    const item = await this.respository.create({...data, updatedUser: updatedUserId});
+    await item.save();
+    this.systemLogService.logChange({
+      objectId: item.id,
+      objectType: SystemLogObjectTypeEnum.USER,
+      type: SystemLogTypeEnum.CREATE,
+      updatedUserId: updatedUserId
+    });
+
+    return item;
+  }
+
+  /**
+   * Chỉnh sửa thông tin <%= name %>
+   * @param id Id <%= name %>
+   * @param updateData Dự liệu update
+   * @param updatedUserId Id của user update
+   */
+  async update(id: number, updateData: Update<%= camelName %>Dto, updatedUserId: number) {
+    const beforeUpdateData = await this.get(id);
+    await this.respository.update(id, {
+      ...updateData,
+      updatedUser: updatedUserId,
+    });
+    const afterUpdateData = await this.get(id);
+
+    this.systemLogService.logChange({
+      before: beforeUpdateData,
+      after: afterUpdateData,
+      objectId: afterUpdateData.id,
+      objectType: SystemLogObjectTypeEnum.USER,
+      type: SystemLogTypeEnum.UPDATE,
+      updatedUserId: updatedUserId
+    });
+
+    return afterUpdateData;
+  }
+
+  /**
+   * Xóa <%= name %>
+   * @param id Id <%= name %>
+   * @param deletedUserId Id của user thực hiện thao tác xóa
+   */
+  async remove(id: number, deletedUserId: number) {
+    await this.respository.update(id, {
+      deletedUser: deletedUserId
+    });
+
+    this.systemLogService.logChange({
+      objectId: id,
+      objectType: SystemLogObjectTypeEnum.USER,
+      type: SystemLogTypeEnum.DELETE,
+      updatedUserId: deletedUserId
+    });
+
+    <% if (isSoftDelete) { %>
+      return await this.respository.softDelete(id);
+    <% } else { %>
+      return await this.respository.delete(id);
+    <% } %>
+  }
+
+}

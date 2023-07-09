@@ -1,0 +1,69 @@
+<div class="w-100 h-lg-100 row m-0">
+    <div class="header">
+        <button class="arrow btn-lg btn link-primary" (click)="goBack()">
+            <fa-icon [icon]="faArrowLeft" style="margin-right: 10px;"></fa-icon>
+            Trang chủ
+        </button>
+    </div>
+    <div class="col-lg-6 d-none d-lg-block illustration">
+        <p class="title mt-4">Đăng nhập</p>
+        <p class="text-muted description">
+            Truy cập vào hồ sơ sức khỏe của bạn một cách an toàn và thuận tiện.
+        </p>
+        <div class="d-flex justify-content-center">
+            <img src="../../../../../assets/Login.png">
+        </div>
+    </div>
+    <div class="col-lg-6 d-block">
+        <div class="d-flex justify-content-center align-items-center h-100 mt-5 mt-lg-0">
+            <div class="card float-center p-3 px-3 px-md-5 mx-2 mx-md-4 h-100 w-100">
+                <img src="../../../../../assets/login-logo.png" width="117px" height="100px" style="margin:20px auto 0px auto" />
+                <div class="card-body">
+                    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="g-3 mt-4" novalidate>
+                        <p class="text-center mb-4" style="font-size: 16px; letter-spacing: 0.5px;">Vui lòng nhập thông tin sau để tiếp tục</p>
+                        <div class="form-group mb-3">
+                            <div class="input-group ">
+                                <span class="input-group-text">
+                                    <fa-icon [icon]="faUser"></fa-icon>
+                                </span>
+                                <input type="text" name="username" formControlName="username" class="form-control" required placeholder="{{'Tài khoản' | translate}}">
+                            </div>
+                            <control-error-message [control]="loginForm.controls['username']" *ngIf="loginForm.controls['username'].touched"></control-error-message>
+                        </div>
+                        <div class="form-group mb-3">
+                            <div class="input-group ">
+                                <span class="input-group-text">
+                                    <fa-icon [icon]="faLock"></fa-icon>
+                                </span>
+                                <input type="password" name="password" formControlName="password" class="form-control" required placeholder="{{'Mật khẩu' | translate}}">
+                            </div>
+                            <control-error-message [control]="loginForm.controls['password']" *ngIf="loginForm.controls['password'].touched"></control-error-message>
+                        </div>
+                        <div class="d-flex justify-content-end mt-2 mb-3">
+                            <a style="color: #00579b" [routerLink]="['/auth/forgot-password']" translate>Quên mật
+                                khẩu</a>
+                        </div>
+                        <div class="col-12">
+                          <make-form-touched [form]="loginForm">
+                            <button class="mb-3 btn btn-lg w-100 btn-save" type="submit" translate [disabled]="loginForm.invalid" style="background: #03ACF2; color: white;">Đăng nhập</button>
+                          </make-form-touched>
+                        </div>
+                    </form>
+
+                    <div class="d-flex justify-content-center mt-2">
+                        <span class="text-center">
+                            Chưa có tài khoản?
+                            <a class="ms-1" style="color: #00579b" [routerLink]="['/auth/verify-code']" translate>Đăng ký ngay</a>
+                        </span>
+                    </div>
+                    
+                    <div class="d-flex mt-2" *ngIf="appState.config.enableTranslate">
+                        <button class="btn btn-light" (click)="selectLang('en')">English</button>
+                        <button class="btn btn-light mx-2" (click)="selectLang('vi')">Tiếng Việt</button>
+                    </div>
+                </div>
+        
+            </div>
+        </div>
+    </div>
+</div>

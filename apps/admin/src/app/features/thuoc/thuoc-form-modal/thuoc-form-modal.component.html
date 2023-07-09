@@ -1,0 +1,40 @@
+<form novalidate [formGroup]="thuocFormModal">
+    <div class="modal-header">
+        <div class="modal-title">
+            <h4 translate *ngIf="isAddNew">Thêm thuốc</h4>
+            <h4 translate *ngIf="!isAddNew">Sửa thuốc</h4>
+        </div>
+    </div>
+
+    <div class="modal-body">
+        <div class="form-group row">
+            <label class="required form-label" translate>Tên thuốc</label>
+            <div class="">
+                <input type="text" name="tenThuoc" class="form-control" formControlName="tenThuoc">
+                <control-error-message [control]="thuocFormModal.controls['tenThuoc']" *ngIf="thuocFormModal.controls['tenThuoc'].touched"></control-error-message>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="required form-label" translate>Đơn vị</label>
+            <div class="">
+                <input type="text" name="donVi" class="form-control" formControlName="donVi">
+                <control-error-message [control]="thuocFormModal.controls['donVi']" *ngIf="thuocFormModal.controls['donVi'].touched"></control-error-message>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="required form-label" translate>Đơn giá</label>
+            <div class="">
+                <input type="text" name="donGia" class="form-control" formControlName="donGia">
+                <control-error-message [control]="thuocFormModal.controls['donGia']" *ngIf="thuocFormModal.controls['donGia'].touched"></control-error-message>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-footer">
+        <button class="btn btn btn-secondary" type="submit" (click)="cancel()" translate>Đóng</button>
+        <button class="btn btn-primary" type="submit" (click)="onSubmit()" translate>
+            <fa-icon [icon]="faSave"></fa-icon>
+            Lưu
+        </button>
+    </div>
+</form>

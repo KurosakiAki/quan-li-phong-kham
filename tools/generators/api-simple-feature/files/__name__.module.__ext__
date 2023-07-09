@@ -1,0 +1,18 @@
+import { Module } from '@nestjs/common';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { SystemLogModule } from '../system-log/system-log.module';
+import { <%= camelName %>Controller } from './<%= name %>.controller';
+import { <%= camelName %> } from './<%= name %>.entity';
+import { <%= camelName %>Service } from './<%= name %>.service';
+
+
+@Module({
+  imports: [
+    TypeOrmModule.forFeature([<%= camelName %>]),
+    SystemLogModule
+  ],
+  providers: [<%= camelName %>Service],
+  controllers: [<%= camelName %>Controller],
+  exports: [<%= camelName %>Service]
+})
+export class <%= camelName %>Module { }

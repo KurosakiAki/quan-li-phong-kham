@@ -1,0 +1,35 @@
+<header>
+  <div class="d-flex justify-content-between h-100">
+    <a href="#" class="d-lg-block logo-container order-2 order-lg-1">
+      <img class="logo" [src]="appState.config.logoPath" alt="App logo" height="36"/>
+    </a>
+    <div class="d-flex justify-content-between flex-lg-grow-1 order-1 order-lg-2">
+      <span class="show-mobile-menu">
+        <fa-icon [icon]="faBars" (click)="showMobileMenu = true"></fa-icon>
+      </span>
+      <div class="nav" id="header-menu" [class.show]="showMobileMenu">
+        <div class="close-menu">
+          <span (click)="showMobileMenu = false">
+            <fa-icon [icon]="faTimes"></fa-icon>
+          </span>
+        </div>
+
+        <div class="nav-item" *ngFor="let item of layoutService.state.menuItems">
+
+          <div ngbDropdown *ngIf="item.children" class="dropdown">
+            <button class="dropdown-toggle btn btn-link" ngbDropdownToggle>{{item.title | translate}}</button>
+            <div ngbDropdownMenu>
+              <a ngbDropdownItem class="nav-link dropdown-item" *ngFor="let child of item.children"
+                [routerLink]="[child.path]" routerLinkActive="active" (click)="showMobileMenu = false">{{child.title | translate}}</a>
+            </div>
+          </div>
+
+          <a *ngIf="!item.children" class="nav-link" [routerLink]="[item.path]" routerLinkActive="active"
+            (click)="showMobileMenu = false">{{item.title | translate}}</a>
+
+        </div>
+      </div>
+    </div>
+    <m-user-profile class="order-3"></m-user-profile>
+  </div>
+</header>

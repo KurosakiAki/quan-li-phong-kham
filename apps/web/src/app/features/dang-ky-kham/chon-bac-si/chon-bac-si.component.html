@@ -1,0 +1,38 @@
+
+<div class="container-fluid bg-white" style="min-height: calc(100vh - 64px)">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="row">
+                <h1 class="intro align-self-end">Bắt đầu đặt lịch khám theo nhu cầu của bạn tại đây.</h1>
+                <span class="sub-intro">Hoặc liên hệ qua các hình thức hỗ trợ sau</span>
+                <div class="d-flex flex-row social">
+                    <a class="link-success">
+                        <fa-icon [icon]="faPhone"></fa-icon>
+                        1900 1234
+                    </a>
+                    <a class="link-primary mb-5">
+                        <fa-icon [icon]="faFacebookF"></fa-icon>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 mb-5">
+            <ngb-accordion [closeOthers]="true" class="col-md-6">
+                <ngb-panel *ngFor="let chuyenKhoa of chuyenKhoaList">
+                    <ng-template ngbPanelTitle>
+                        <span class="title">{{ chuyenKhoa.tenChuyenKhoa }}</span>
+                    </ng-template>
+                    <ng-template ngbPanelContent>
+                        <div *ngFor="let bacSi of bacSiList">
+                            <div class="d-flex justify-content-between" *ngIf="bacSi.specialistId === chuyenKhoa.id">
+                                <div class="align-self-center" style="font-size: 16px; font-weight: 400;">{{bacSi.fullname}}</div>
+                                <button class="btn btn-primary mt-2" [routerLink]="['/app', 'dang-ky-kham', bacSi.id]">Chọn</button>
+                            </div>
+                        </div>
+                    </ng-template>
+                </ngb-panel>
+            </ngb-accordion>
+        </div>
+    </div>
+</div>
+

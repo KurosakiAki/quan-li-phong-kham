@@ -1,0 +1,121 @@
+<m-page-header>
+    <m-page-title>
+        {{'Sổ khám chữa bệnh' | translate}}
+    </m-page-title>
+</m-page-header>
+<m-page-container>
+    <div class="d-flex justify-content-between">
+        <h4 translate class="mb-3">Thông tin</h4>
+        <button class="action btn link-primary mb-3" [ngbTooltip]="'Sửa thông tin cá nhân' | translate" (click)="openFormModal()">
+            <fa-icon [icon]="faPencil" class="icon-btn"></fa-icon>
+        </button>
+    </div>
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <div class="row benh-nhan">
+                    <div class="col-md-6">
+                        <p>Mã số: <strong>{{hoSo.referenceId}}</strong></p>
+                        <p>Họ và tên: {{hoSo.fullname}}</p>
+                        <p>Ngày sinh: {{hoSo.birthday | date: 'dd/MM/YYYY'}}</p>
+                        <p>Giới tính: {{hoSo.gender}}</p>
+                    </div>
+                    <div class="col-md-6">
+                        <p>Tên đăng nhập: {{hoSo.username}}</p>
+                        <p>Email: {{hoSo.email}}</p>
+                        <p>Số điện thoại: {{hoSo.phone}}</p>
+                        <p>Địa chỉ: {{hoSo.address}}</p>
+                    </div>
+                    <p [innerText]="'Tiền sử bệnh: ' + hoSo.tienSuBenh"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="mt-3 card">
+        <div *ngIf="this.lichKhamList.length === 0" class="d-flex justify-content-center">
+            <span class="mt-4 mb-4" translate>Không có dữ liệu để hiển thị</span>
+        </div>
+        <div *ngIf="this.lichKhamList.length > 0">
+            <ngx-datatable class="material" [rows]="lichKhamList" [headerHeight]="$any('auto')" [columnMode]="'force'" [limit]="params.limit" [offset]="tableOffset"
+            [footerHeight]="$any('auto')" [rowHeight]="'auto'" [scrollbarV]="false" [sorts]="[{prop: 'id', dir: 'desc'}]"
+                [limit]="20" [scrollbarH]="screenSize.smallerThan.xl">
+
+                <ngx-datatable-column name="ID" [width]="50">
+                    <ng-template let-row="row" ngx-datatable-cell-template>
+                        {{row.id}}
+                    </ng-template>
+                </ngx-datatable-column>
+
+                <ngx-datatable-column name="thoiGianKham" [width]="110" [draggable]="true">
+                    <ng-template let-column="column" ngx-datatable-header-template>
+                        <span translate>Ngày</span>
+                    </ng-template>
+                    <ng-template let-row="row" ngx-datatable-cell-template>
+                        {{row.thoiGianKham | date:'dd/MM/yyyy'}}
+                    </ng-template>
+                </ngx-datatable-column>
+
+                <ngx-datatable-column name="thoiGianKham" [width]="70" [draggable]="true">
+                    <ng-template let-column="column" ngx-datatable-header-template>
+                        <span translate>Giờ</span>
+                    </ng-template>
+                    <ng-template let-row="row" ngx-datatable-cell-template>
+                        {{row.thoiGianKham | date:'shortTime'}}
+                    </ng-template>
+                </ngx-datatable-column>
+
+                <ngx-datatable-column name="tenBacSi">
+                    <ng-template let-column="column" ngx-datatable-header-template>
+                        <span translate>Bác Sĩ</span>
+                    </ng-template>
+                    <ng-template let-row="row" ngx-datatable-cell-template>
+                        {{row.tenBacSi}}
+                    </ng-template>
+                </ngx-datatable-column>
+
+                <ngx-datatable-column name="lyDo">
+                    <ng-template let-column="column" ngx-datatable-header-template>
+                        <span translate>Lý do</span>
+                    </ng-template>
+                    <ng-template let-row="row" ngx-datatable-cell-template>
+                        {{row.lyDo}}
+                    </ng-template>
+                </ngx-datatable-column>
+
+                <ngx-datatable-column name="chanDoan">
+                    <ng-template let-column="column" ngx-datatable-header-template>
+                        <span translate>Chẩn đoán</span>
+                    </ng-template>
+                    <ng-template let-row="row" ngx-datatable-cell-template>
+                        {{row.chanDoan}}
+                    </ng-template>
+                </ngx-datatable-column>
+
+                <ngx-datatable-column name="Action" [sortable]="false">
+                    <ng-template let-column="column" ngx-datatable-header-template>
+                        <span translate>Thao tác</span>
+                    </ng-template>
+                    <ng-template let-row="row" ngx-datatable-cell-template>
+                        <button class="action btn link-secondary" [ngbTooltip]="'Xem chi tiết' | translate"
+                            (click)="openDetail(row)">
+                            <fa-icon [icon]="faEye" size="lg"></fa-icon>
+                        </button>
+                    </ng-template>
+                </ngx-datatable-column>
+
+                <ngx-datatable-footer>
+                    <ng-template let-rowCount="rowCount" let-pageSize="pageSize" let-selectedCount="selectedCount"
+                        let-curPage="curPage" let-offset="offset" ngx-datatable-footer-template>
+                        <div class="w-100">
+                            <m-datatable-footer [params]="{page: curPage, limit: params.limit}"
+                                [totalRows]="lichKhamList.length"
+                                (footerChangeEvent)="footerChangeEvent($event)">
+                            </m-datatable-footer>
+                        </div>
+                    </ng-template>
+                </ngx-datatable-footer>
+            </ngx-datatable>
+        </div>
+    </div>
+</m-page-container>

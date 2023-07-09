@@ -1,0 +1,33 @@
+import { Entity, Column, PrimaryGeneratedColumn, BaseEntity, DeleteDateColumn, CreateDateColumn, UpdateDateColumn } from 'typeorm';
+
+@Entity('<%= dbName %>')
+export class <%= camelName %> extends BaseEntity {
+  @PrimaryGeneratedColumn()
+  id: number;
+
+  @Column({ length: 255 })
+  ten<%= camelName %>: string;
+
+  @Column({ length: 20 })
+  ma<%= camelName %>: string;
+
+  <% if(isSoftDelete) {  %>
+    @DeleteDateColumn()
+    deletedAt?: Date;
+
+    /**
+    * Id user thực hiện thao tác xóa
+    */
+    @Column()
+    deletedUser?: number;
+  <% } %>
+
+  @CreateDateColumn()
+  createdAt: Date;
+
+  @UpdateDateColumn()
+  updatedAt: Date;
+
+  @Column()
+  updatedUser: number;
+}
